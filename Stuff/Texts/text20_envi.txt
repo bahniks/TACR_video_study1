@@ -1,0 +1,7 @@
+TEXT ENVI 20
+Toto je envi text 20
+Toto je envi text 20
+Toto je envi text 20
+Toto je envi text 20
+Toto je envi text 20
+Toto je envi text 20

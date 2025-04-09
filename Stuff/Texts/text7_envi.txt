@@ -1,0 +1,2 @@
+TEXT ENVI 7
+Toto je envi text 7

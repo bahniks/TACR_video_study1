@@ -1,0 +1,4 @@
+TEXT ENVI 14
+Toto je envi text 14
+Toto je envi text 14
+Toto je envi text 14

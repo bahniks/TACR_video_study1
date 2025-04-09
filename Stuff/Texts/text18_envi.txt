@@ -1,0 +1,4 @@
+TEXT ENVI 18
+Toto je envi text 18
+Toto je envi text 18
+Toto je envi text 18
