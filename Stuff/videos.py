@@ -10,7 +10,7 @@ from common import ExperimentFrame, Measure, InstructionsFrame
 from gui import GUI
 
 
-class Videos:
+class VideoPlayer:
     def __init__(self, root, video_path):
         self.root = root
         self.video_path = video_path
@@ -81,13 +81,13 @@ class JOL(InstructionsFrame):
 
 
 if __name__ == "__main__":
-    from login import Login
-    os.chdir(os.path.dirname(os.getcwd()))
-    GUI([JOL, Login,
-         Videos])    
+    # from login import Login
+    # os.chdir(os.path.dirname(os.getcwd()))
+    # GUI([JOL, Login,
+    #      Videos])    
 
-
-    # video_path = os.path.join(os.getcwd(), "Videos/video_2_1.mp4")
-    # app = Videos(root, video_path)
-    # root.protocol("WM_DELETE_WINDOW", app.stop)
-    # root.mainloop()
+    root = Tk()
+    video_path = os.path.join(os.getcwd(), "Videos/video_2_1.mp4")
+    app = VideoPlayer(root, video_path)
+    root.protocol("WM_DELETE_WINDOW", app.stop)
+    root.mainloop()
