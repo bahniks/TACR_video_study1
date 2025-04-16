@@ -105,7 +105,10 @@ class Selection(InstructionsFrame):
 
 
     def response(self, choice):        
-        self.next["text"] = "Potvrzuji výběr formátu VLEVO" if choice == l else "Potvrzuji výběr formátu VPRAVO"
+        if choice == self.root.status["versions"][0]:
+            self.next["text"] = "Potvrzuji výběr formátu VLEVO"
+        else:
+            self.next["text"] = "Potvrzuji výběr formátu VPRAVO"
         self.next["state"] = "normal"
         self.choice = choice
 
@@ -122,8 +125,8 @@ class Selection(InstructionsFrame):
 VideoIntro1 = (InstructionsFrame, {"text": instructions1, "proceed": True, "height": 15})
 VideoIntro2 = (InstructionsFrame, {"text": instructions2, "proceed": True, "height": 25})
 VideoIntro3 = (InstructionsFrame, {"text": instructions3, "proceed": True, "height": 10})
-VideoIntro4 = (InstructionsFrame, {"text": instructions3b, "proceed": True, "height": 10})
-VideoIntro5 = (InstructionsFrame, {"text": instructions4, "proceed": True, "height": 10})
+VideoIntro4 = (InstructionsFrame, {"text": instructions4, "proceed": True, "height": 10})
+VideoIntro5 = (InstructionsFrame, {"text": instructions5, "proceed": True, "height": 10})
 VideoIntro6 = (InstructionsFrame, {"text": instructions6, "proceed": True, "height": 10})
 
 

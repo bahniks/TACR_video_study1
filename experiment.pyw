@@ -15,6 +15,7 @@ from login import Login
 from videointros import VideoIntro1, VideoIntro2, VideoIntro3, VideoIntro4, VideoIntro5, Selection, VideoIntro6
 from videos import Videos, JOL, IMI, Quiz1, Quiz2, IMI2, Quiz3
 from quest import QuestInstructions, Hexaco
+from questionnaire import NFC, Boredom, Social
 
 
 
@@ -35,13 +36,16 @@ frames = [Initial,
           IMI2,
           Quiz3,
           QuestInstructions,
+          NFC,
+          Boredom,
           Hexaco,
+          Social,
           Demographics,
           Comments,
           Ending
          ]
 
-#frames = [Login, HEXACOinfo]
+#frames = [Login, Hexaco, Quiz3, Ending]
 
 if __name__ == "__main__":
     GUI(frames, load = os.path.exists("temp.json"))

@@ -176,15 +176,15 @@ class Likert(Canvas):
         if attentiontext in self.text:
             if not "attention_checks" in self.root.root.status:
                 self.root.root.status["attention_checks"] = 0
-                self.root.root.texts["attention1"] = "Neodpověděli"
-                self.root.root.texts["attention2"] = "nevyhráváte"
-                self.root.root.texts["bonus"] = 0
+                self.root.root.texts["attention1"] = "Neodpověděl(a)"
+                self.root.root.texts["attention2"] = "Nezískáváte"
+                self.root.root.status["bonus"] = 0
             if self.answer.get() == self.text[-2]:
                 self.root.root.status["attention_checks"] += 1
                 if self.root.root.status["attention_checks"] == self.root.checksNumber:
-                    self.root.root.texts["attention1"] = "Odpověděli"
-                    self.root.root.texts["attention2"] = "vyhráváte"
-                    self.root.root.texts["bonus"] = BONUS
+                    self.root.root.texts["attention1"] = "Odpověděl(a)"
+                    self.root.root.texts["attention2"] = "Získáváte"
+                    self.root.root.status["bonus"] = BONUS
         else:
             ans = "{}\t{}\t{}\n".format(self.short, self.answer.get(), self.text.replace("\t", " "))
             self.root.file.write(self.root.id + "\t" + ans)
@@ -197,18 +197,9 @@ class Likert(Canvas):
 
 class Hexaco(Quest):
     def __init__(self, root):
-        super().__init__(root, 10, "hexaco.txt", "Hexaco", instructions = hexacoinstructions, width = 85,
-                         left = "silně nesouhlasím", right = "silně souhlasím", checks = 0,
+        super().__init__(root, 11, "hexaco.txt", "Hexaco", instructions = hexacoinstructions, width = 85,
+                         left = "silně nesouhlasím", right = "silně souhlasím", checks = 1,
                          height = 3, options = 5, center = True)
-
-
-# polwillintro = "Označte, do jaké míry souhlasíte s následujícímí tvrzeními, na poskytnuté škále."
-
-# class PoliticalWill(Quest):
-#     def __init__(self, root):
-#         super().__init__(root, 9, "polwill.txt", "Political Will", instructions = polwillintro, width = 85,
-#                          left = "Zcela nesouhlasím", right = "Zcela souhlasím",
-#                          height = 3, options = 7, center = True)
 
 
 
@@ -219,5 +210,5 @@ QuestInstructions = (InstructionsFrame, {"text": questintro, "height": 15})
 
 if __name__ == "__main__":
     os.chdir(os.path.dirname(os.getcwd()))
-    GUI([QuestInstructions, Hexaco
+    GUI([Hexaco, QuestInstructions
          ])

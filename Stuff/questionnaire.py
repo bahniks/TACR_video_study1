@@ -18,12 +18,6 @@ from constants import TESTING, AUTOFILL
 intro = "Označte, do jaké míry souhlasíte s následujícímí tvrzeními, na poskytnuté škále."
 
 
-hexacotext = """Pokud jste ještě nedokončili celý tištěný dotazník, prosím odpovězte nyní na zbývající otázky na poskytnutý záznamový arch.
-Zkontrolujte také, že máte v záznamovém archu správně vyplněné své identifikační číslo {}.
-
-Jakmile dotazník dokončíte, klikněte na tlačítko Pokračovat.
-"""
-
 
 
 class Questionnaire(ExperimentFrame):
@@ -128,49 +122,78 @@ class Questionnaire(ExperimentFrame):
 
 
 
-PoliticalSkill = (Questionnaire,
-                {"words": "polskill.txt",
-                 "question": intro,
-                 "labels": ["Zcela\nnesouhlasím",
-                            "Nesouhlasím",
-                            "Mírně\nnesouhlasím",
-                            "Neutrální",
-                            "Mírně\nsouhlasím",
-                            "Souhlasím",
-                            "Zcela\nsouhlasím"],
-                 "values": 7,
-                 "labelwidth": 11,
+nfcIntro = "Přečtěte si prosíme každé tvrzení a ohodnoťte, nakolik je pro Vás charakteristické."
+
+NFC = (Questionnaire,
+                {"words": "nfc.txt",
+                 "question": nfcIntro,
+                 "labels": ["pro mě velmi necharakteristické",
+                            "pro mě necharakteristické",
+                            "neutrální",
+                            "pro mě charakteristické",
+                            "pro mě velmi charakteristické"],
+                 "values": 5,
+                 "labelwidth": 15,
                  "text": False,
                  "fontsize": 13,
                  "blocksize": 6,
-                 "wraplength": 450,
-                 "filetext": "Political Skill",
-                 "fixedlines": 2,
+                 "wraplength": 500,
+                 "filetext": "NFC",
+                 "fixedlines": 3,
                  "pady": 3})
 
-TDMS = (Questionnaire,
-                {"words": "tdms.txt",
-                 "question": intro,
-                 "labels": ["Zcela\nnesouhlasím",
-                            "Nesouhlasím",
-                            "Mírně\nnesouhlasím",
-                            "Neutrální",
-                            "Mírně\nsouhlasím",
-                            "Souhlasím",
-                            "Zcela\nsouhlasím"],
+
+
+boredomIntro = """Přečtěte si prosím každé tvrzení a označte, nakolik s ním souhlasíte.
+Vaším úkolem je odpovídat co nejupřímněji podle toho, co nejlépe vystihuje Vaše běžné prožívání a chování."""
+
+Boredom = (Questionnaire,
+                {"words": "boredom.txt",
+                 "question": boredomIntro,
+                 "labels": ["rozhodně nesouhlasím",
+                            "nesouhlasím",
+                            "spíše nesouhlasím",
+                            "neutrální",
+                            "spíše souhlasím",
+                            "souhlasím",
+                            "rozhodně souhlasím"],
                  "values": 7,
                  "labelwidth": 11,
                  "text": False,
                  "fontsize": 13,
-                 "blocksize": 4,
+                 "blocksize": 8,
                  "wraplength": 450,
-                 "filetext": "TDMS",
+                 "filetext": "Boredom",
                  "fixedlines": 2,
-                 "pady": 3})
+                 "pady": 5})
 
 
-HEXACOinfo = (InstructionsFrame, {"text": hexacotext, "height": 5, "update": ["idNumber"]})
+
+
+socialIntro = """Níže naleznete několik otázek týkajících se Vašeho vztahu k sociálním médiím (Facebook, Twitter, Instagram, TikTok apod.) a jejich používání. 
+U každé otázky vyberte tu variantu odpovědi, která vás nejlépe vystihuje."""
+
+
+Social = (Questionnaire,
+                {"words": "social.txt",
+                 "question": socialIntro,
+                 "labels": ["velmi zřídka",
+                            "zřídka",
+                            "někdy",
+                            "často",
+                            "velmi často"],
+                 "values": 5,
+                 "labelwidth": 10,
+                 "text": False,
+                 "fontsize": 13,
+                 "blocksize": 6,
+                 "wraplength": 600,
+                 "filetext": "Social",
+                 "fixedlines": 2,
+                 "pady": 5})
+
+
 
 if __name__ == "__main__":
     os.chdir(os.path.dirname(os.getcwd()))
-    GUI([TDMS, PoliticalSkill])
+    GUI([Social])

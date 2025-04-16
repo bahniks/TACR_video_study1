@@ -190,6 +190,7 @@ def getQuestions(filename):
             else:
                 q[1].append(line.strip())               
             count += 1
+    questions.append(q)
     return questions
 
 quizInstructions1 = """
@@ -209,13 +210,44 @@ Připomínáme, že pokud v závěrečném kvízu obdržíte alespoň {LIMIT} bo
 """
 
 
-Quiz1 = (InstructionsAndUnderstanding, {"text": quizInstructions1, "height": 5, "width": 80, "name": "Quiz1", "randomize": True, "showFeedback": False, "controlTexts": getQuestions("quiz1.txt"), "fillerheight": 300, "finalButton": "Pokračovat"})
-Quiz2 = (InstructionsAndUnderstanding, {"text": quizInstructions2, "height": 5, "width": 80, "name": "Quiz2", "randomize": True, "showFeedback": False, "controlTexts": getQuestions("quiz2.txt"), "fillerheight": 300, "finalButton": "Pokračovat"})
-Quiz3 = (InstructionsAndUnderstanding, {"text": quizInstructions3, "height": 8, "width": 80, "name": "Quiz3", "randomize": True, "showFeedback": False, "controlTexts": getQuestions("quiz3.txt"), "update": ["condition"], "fillerheight": 300, "finalButton": "Pokračovat"})
+class Quiz(InstructionsAndUnderstanding):
+    def __init__(self, root, name, **kwargs):
+        super().__init__(root, width = 80, name = name, randomize = True, showFeedback = False, fillerheight = 300, finalButton = "Pokračovat", **kwargs)
+
+        self.name = name
+        self.correct = 0
+
+    def nextFun(self):  
+        if self.controlQuestion.getAnswer() == self.controlTexts[self.controlNum - 1][1][0]:
+            thisCorrect = "1"
+            self.correct += 1
+        else:
+            thisCorrect = "0"
+            
+        self.file.write(self.id + "\t" + str(self.controlNum) + "\t" + self.controlQuestion.getAnswer() + "\t" + thisCorrect + "\t" + str(self.correct) + "\t" + self.root.status["condition"] + "\n")
+
+        if self.controlNum == len(self.controlTexts):
+            self.file.write("\n")
+            if self.name == "Quiz3":
+                self.root.texts["quizcorrect"] = str(self.correct)
+                if self.correct >= LIMIT:
+                    self.root.status["quizwin"] = int(self.root.texts["condition"])
+                else:
+                    self.root.status["quizwin"] = 0
+                self.root.texts["quizwin"] = str(self.root.status["quizwin"])
+            InstructionsFrame.nextFun(self)   
+        else:
+            self.createQuestion()     
+
+
+
+Quiz1 = (Quiz, {"text": quizInstructions1, "height": 5, "name": "Quiz1", "controlTexts": getQuestions("quiz1.txt")})
+Quiz2 = (Quiz, {"text": quizInstructions2, "height": 5, "name": "Quiz2", "controlTexts": getQuestions("quiz2.txt")})
+Quiz3 = (Quiz, {"text": quizInstructions3, "height": 8, "name": "Quiz3", "controlTexts": getQuestions("quiz3.txt"), "update": ["condition"]})
 
 
 
 if __name__ == "__main__":
     os.chdir(os.path.dirname(os.getcwd()))
-    GUI([Login, Quiz3, IMI2,
+    GUI([Login, Quiz1, IMI2,
          Videos, JOL, IMI, Quiz1])    
