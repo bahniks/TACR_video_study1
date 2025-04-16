@@ -1,5 +1,8 @@
 #! python3
 
+from tkinter import *
+from tkinter import ttk
+
 import os
 
 from common import InstructionsFrame
@@ -27,37 +30,109 @@ První část videí se zaměří na psychologické aspekty – tedy proč porad
 """
 
 instructions3 = """
-V následujícím kroku uvidíte první video ve formátu {}. Po jeho zhlédnutí Vás čeká krátké hodnocení videa a znalostní test.
+V následujícím kroku uvidíte první video. Po jeho zhlédnutí Vás čeká krátké hodnocení videa a znalostní test.
 """
 
 instructions4 = """
+V následujícím kroku uvidíte druhé video ve druhém formátu. Po jeho zhlédnutí Vás čeká krátké hodnocení videa a znalostní test.
+"""
+
+instructions5 = """
 Děkujeme! Právě jste dokončili první část studie.
 Zhlédli jste dvě videa ve dvou různých formátech a poskytli nám své hodnocení i odpovědi na kvízové otázky.
 """
 
 braces = "{}"
-instructions5 = f"""
+instructionsSelection = f"""
 Čeká Vás dále série pěti videí, jejich ohodnocení a závěrečný kvíz k této sérii videí, za který již budete odměněni. 
 
 Pokud v závěrečném kvízu obdržíte alespoň {LIMIT} bodů z 25, obdržíte dodatečnou finanční odměnu ve výši {braces} Kč.
 
-Nyní vás čeká rozhodnutí, ve kterém formátu videí byste chtěli pokračovat pro sérii pěti videí. Po zhlédnují všech videí Vás opět čeká jejich hodnocení a finální kvíz z těchto 5 videí. 
-Váš výběr je důležitý – výše vaší odměny závisí na úspěšnosti tohoto finálního kvízu.
+Nyní vás čeká důležité rozhodnutí, tedy, ve kterém formátu videí byste chtěli pokračovat pro sérii pěti videí. 
+- <b>Formát na obrázku vlevo</b> je, jak jste viděli, ve formě prezentace s výraznou textovou podporou. V menším okně je osoba, která provádí lekcí.
+- <b>Formát na obrázku vpravo</b> je, jak jste viděli, ve  formě prezentace hlavních bodů, osoba, která provádí lekcí, je výrazněji přítomna.
+
+Po zhlédnují všech videí Vás opět čeká jejich hodnocení a finální kvíz z těchto 5 videí. 
+Váš výběr formátu vida je důležitý – výše Vaší odměny závisí na úspěšnosti tohoto finálního kvízu.
+
+Formát videa vyberte kliknutím na obrázek.
 """
+
+instructions6 = """
+Děkujeme za Váš výběr.
+
+Nyní přejdeme k sérii pěti videí z lekce zaměřené na porady a pracovní schůzky ve Vámi zvoleném formátu.
+"""
+
+
+
+
+
+class Selection(InstructionsFrame):
+    def __init__(self, root):
+        super().__init__(root, text = instructionsSelection, proceed = True, update = ["condition"], height = 18, width = 90)
+
+        ttk.Style().configure("Padded.TButton", padding = (5,5))   
+
+        l, r = self.root.status["versions"]
+
+        self.left = ttk.Button(self, text="", command=lambda: self.response(l))
+        self.image_left = PhotoImage(file=os.path.join(os.getcwd(), "Stuff", f"{l}.png"))
+        self.left.config(image=self.image_left)
+        self.left.image = self.image_left  # Keep a reference to avoid garbage collection
+        self.left.grid(row=2, column=1)
+        self.left.config(style="Padded.TButton")
+
+        self.right = ttk.Button(self, text="", command=lambda: self.response(r))
+        self.image_right = PhotoImage(file=os.path.join(os.getcwd(), "Stuff", f"{r}.png"))
+        self.right.config(image=self.image_right)
+        self.right.image = self.image_right  # Keep a reference to avoid garbage collection
+        self.right.grid(row=2, column=3)
+        self.right.config(style="Padded.TButton")
+
+        self.next["state"] = "disabled"
+        self.next["text"] = "Vybírám..."
+        self.next["width"] = 30
+
+        self.next.grid(row=3, column=1, columnspan=3)
+        self.text.grid(row=1, column=1, columnspan=3)
+
+        self.columnconfigure(4, weight = 1)
+
+        self.rowconfigure(2, weight = 1)
+        self.rowconfigure(3, weight = 2)
+        self.rowconfigure(4, weight = 3)
+
+
+    def response(self, choice):        
+        self.next["text"] = "Potvrzuji výběr formátu VLEVO" if choice == l else "Potvrzuji výběr formátu VPRAVO"
+        self.next["state"] = "normal"
+        self.choice = choice
+
+    def nextFun(self):
+        self.root.status["versions"].extend([self.choice for i in range(5)])
+        self.file.write("Selection\n" + "\t".join([self.id, self.choice]) + "\n\n")
+        super().nextFun()
+
+
+
+
 
 
 VideoIntro1 = (InstructionsFrame, {"text": instructions1, "proceed": True, "height": 15})
 VideoIntro2 = (InstructionsFrame, {"text": instructions2, "proceed": True, "height": 25})
-VideoIntro3 = (InstructionsFrame, {"text": instructions3, "proceed": True, "height": 10, "update": ["version1"]})
-VideoIntro4 = (InstructionsFrame, {"text": instructions4, "proceed": True, "height": 10})
-VideoIntro5 = (InstructionsFrame, {"text": instructions5, "proceed": True, "height": 25, "update": ["condition"]})
+VideoIntro3 = (InstructionsFrame, {"text": instructions3, "proceed": True, "height": 10})
+VideoIntro4 = (InstructionsFrame, {"text": instructions3b, "proceed": True, "height": 10})
+VideoIntro5 = (InstructionsFrame, {"text": instructions4, "proceed": True, "height": 10})
+VideoIntro6 = (InstructionsFrame, {"text": instructions6, "proceed": True, "height": 10})
 
 
 if __name__ == "__main__":
     os.chdir(os.path.dirname(os.getcwd()))
     GUI([Login, 
+    Selection, #
         VideoIntro1,
         VideoIntro2,
         VideoIntro3,
         VideoIntro4,
-        VideoIntro5])
+        Selection])

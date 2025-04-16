@@ -10,6 +10,7 @@ from common import ExperimentFrame, Measure, InstructionsFrame, InstructionsAndU
 from questionnaire import Questionnaire
 from gui import GUI
 from login import Login
+from constants import LIMIT
 
 
 
@@ -18,6 +19,13 @@ from login import Login
 
 imiInstructions = """Nyní Vás prosíme o hodnocení zhlédnutého videa. 
 U každého z následujících tvrzení uveďte, nakolik je pro vás pravdivé."""
+
+imiInstructions2 = """Skvělé! Dokončili jste všech 5 videí.
+
+Nyní Vás prosíme o hodnocení této série videí.
+U každého z následujících tvrzení uveďte, nakolik je pro vás pravdivé.
+"""
+
 
 imiScale = ["vůbec nepravdivé", "spíše nepravdivé", "do jisté míry pravdivé", "spíše pravdivé", "zcela pravdivé"]
 
@@ -152,6 +160,21 @@ IMI = (Questionnaire,
                  "pady": 3})
 
 
+IMI2 = (Questionnaire,
+                {"words": "imi2.txt",
+                 "question": imiInstructions2,
+                 "labels": imiScale,
+                 "values": 5,
+                 "labelwidth": 11,
+                 "text": False,
+                 "fontsize": 13,
+                 "blocksize": 5,
+                 "wraplength": 700,
+                 "filetext": "IMI",
+                 "fixedlines": 0,
+                 "pady": 3})
+
+
 def getQuestions(filename):
     with open(os.path.join(os.path.dirname(__file__), filename), "r", encoding = "utf-8") as f:
         questions = []        
@@ -169,22 +192,30 @@ def getQuestions(filename):
             count += 1
     return questions
 
-quizInstructions = """
+quizInstructions1 = """
 Nyní odpovězte na následující otázky týkající se obsahu právě zhlédnutého videa na Prokletí znalosti. U každé otázky jsou uvedeny čtyři odpovědi, vždy jen jedna z nich je správná. (výsledek tohoto kvízu nemá vliv na výši odměny).
 """
+quizInstructions2 = """
+Nyní odpovězte na následující otázky týkající se obsahu právě zhlédnutého videa na Status Quo bias. U každé otázky jsou uvedeny čtyři odpovědi, vždy jen jedna z nich je správná. (výsledek tohoto kvízu nemá vliv na výši odměny).
+"""
 
-Quiz1 = (InstructionsAndUnderstanding, {"text": quizInstructions, "height": 5, "width": 80, "name": "Quiz1", "randomize": True, "showFeedback": False, "controlTexts": getQuestions("quiz1.txt"), "fillerheight": 300, "finalButton": "Pokračovat"})
-Quiz2 = (InstructionsAndUnderstanding, {"text": quizInstructions, "height": 5, "width": 80, "name": "Quiz2", "randomize": True, "showFeedback": False, "controlTexts": getQuestions("quiz2.txt"), "fillerheight": 300, "finalButton": "Pokračovat"})
+braces = "{}"
+quizInstructions3 = f"""
+Nyní vás čeká závěrečný kvíz, který ověří, co jste si z videí zapamatovali.
+Za každou správnou odpověď získáte 1 bod. 
+U každé otázky je vždy jedna správná odpověď.
+
+Připomínáme, že pokud v závěrečném kvízu obdržíte alespoň {LIMIT} bodů z 25, obdržíte dodatečnou finanční odměnu ve výši {braces} Kč.
+"""
+
+
+Quiz1 = (InstructionsAndUnderstanding, {"text": quizInstructions1, "height": 5, "width": 80, "name": "Quiz1", "randomize": True, "showFeedback": False, "controlTexts": getQuestions("quiz1.txt"), "fillerheight": 300, "finalButton": "Pokračovat"})
+Quiz2 = (InstructionsAndUnderstanding, {"text": quizInstructions2, "height": 5, "width": 80, "name": "Quiz2", "randomize": True, "showFeedback": False, "controlTexts": getQuestions("quiz2.txt"), "fillerheight": 300, "finalButton": "Pokračovat"})
+Quiz3 = (InstructionsAndUnderstanding, {"text": quizInstructions3, "height": 8, "width": 80, "name": "Quiz3", "randomize": True, "showFeedback": False, "controlTexts": getQuestions("quiz3.txt"), "update": ["condition"], "fillerheight": 300, "finalButton": "Pokračovat"})
 
 
 
 if __name__ == "__main__":
     os.chdir(os.path.dirname(os.getcwd()))
-    GUI([Login,
+    GUI([Login, Quiz3, IMI2,
          Videos, JOL, IMI, Quiz1])    
-
-
-    # video_path = os.path.join(os.getcwd(), "Videos/video_2_1.mp4")
-    # app = Videos(root, video_path)
-    # root.protocol("WM_DELETE_WINDOW", app.stop)
-    # root.mainloop()

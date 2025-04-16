@@ -1,4 +1,6 @@
 #! python3
+# -*- coding: utf-8 -*- 
+
 from tkinter import *
 from tkinter import ttk
 from collections import defaultdict
@@ -15,11 +17,21 @@ from constants import BONUS, TESTING
 
 ################################################################################
 # TEXTS
-questintro = """
-V následující části studie budete odpovídat na otázky o sobě, Vašich postojích a názorech. Tato část by měla trvat asi 5 minut.
+questintro = f"""
+Váš výsledek z finálního kvízu a Vaši výši odměny se dozvíte na konci celé studie. 
+
+V následující části studie budete odpovídat na otázky o sobě, Vašich postojích a názorech. Tato část by měla trvat asi 15 minut.
 
 Každou otázku si pečlivě přečtěte. Snažte se však na otázky nemyslet příliš dlouho; první odpověď, která Vám přijde na mysl, je obvykle nejlepší.
+
+Mezi dotazníky bude jedna položka měřící vaší pozornost, pokud odpovíte správně, tak dostanete dodatečných {BONUS} Kč.
 """
+
+hexacoinstructions = """Na následujících stránkách najdete řadu prohlášení o Vaší osobě.
+
+Přečtěte si prosím každé prohlášení a rozhodněte se, do jaké míry s ním souhlasíte, nebo nesouhlasíte.
+"""
+
 
 attentiontext = "Chcete-li prokázat, že zadání věnujete pozornost, vyberte možnost "
 
@@ -183,6 +195,13 @@ class Likert(Canvas):
 
 
 
+class Hexaco(Quest):
+    def __init__(self, root):
+        super().__init__(root, 10, "hexaco.txt", "Hexaco", instructions = hexacoinstructions, width = 85,
+                         left = "silně nesouhlasím", right = "silně souhlasím", checks = 0,
+                         height = 3, options = 5, center = True)
+
+
 # polwillintro = "Označte, do jaké míry souhlasíte s následujícímí tvrzeními, na poskytnuté škále."
 
 # class PoliticalWill(Quest):
@@ -200,5 +219,5 @@ QuestInstructions = (InstructionsFrame, {"text": questintro, "height": 15})
 
 if __name__ == "__main__":
     os.chdir(os.path.dirname(os.getcwd()))
-    GUI([QuestInstructions
+    GUI([QuestInstructions, Hexaco
          ])
