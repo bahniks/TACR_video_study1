@@ -9,6 +9,7 @@ import vlc
 from common import ExperimentFrame, Measure, InstructionsFrame, InstructionsAndUnderstanding
 from questionnaire import Questionnaire
 from gui import GUI
+from login import Login
 
 
 
@@ -46,14 +47,20 @@ imiItems = ["Velmi jsem si užil(a) sledování tohoto videa",
 
 
 
-class Videos:
-    def __init__(self, root, video_path):
+class Videos(ExperimentFrame):
+    def __init__(self, root):
+        super().__init__(root)
         self.root = root
-        self.video_path = video_path
+        self.video_path = self.getVideo()
 
         # Create tkinter canvas for video
-        self.canvas = Canvas(root, width=640, height=480)
-        self.canvas.pack()
+        self.canvas = Canvas(self, width=1200, height=674, background = "white", highlightbackground = "white", highlightcolor = "white")
+        self.canvas.grid(column = 1, row = 1, sticky=(N, S, E, W))
+
+        self.columnconfigure(0, weight = 1)
+        self.columnconfigure(2, weight = 1) 
+        self.rowconfigure(0, weight = 1)
+        self.rowconfigure(2, weight = 1)
 
         # Initialize VLC player
         self.instance = vlc.Instance()
@@ -69,35 +76,45 @@ class Videos:
         # Play the video
         self.player.play()
 
+        ttk.Style().configure("TButton", font = "helvetica 15")
+        self.next = ttk.Button(self, text = "Pokračovat", command = self.stop)
+        self.next.grid(row = 2, column = 1)
+
     def stop(self):
         self.player.stop()
-        self.root.destroy()
-
-
-
-class Videos(ExperimentFrame):
-    def __init__(self, root):
-        super().__init__(root)
-
-        self.root = root
-
-        self.pathtext = ttk.Label(self, text = self.getVideo(), font = 15)
-        self.pathtext.grid(row = 0, column = 1)
-
-        ttk.Style().configure("TButton", font = "helvetica 15")
-        self.next = ttk.Button(self, text = "Pokračovat", command = self.nextFun)
-        self.next.grid(row = 1, column = 1)
-
-        self.rowconfigure(0, weight = 1)
-        self.rowconfigure(1, weight = 1)
-        self.columnconfigure(0, weight = 1)
-        self.columnconfigure(2, weight = 1)
+        self.root.status["videoNumber"] += 1
+        self.nextFun()
 
     def getVideo(self):
         trial = self.root.status["videoNumber"]
-        version = self.root.status["versions"][trial]
-        video_path = os.path.join(os.getcwd(), "Videos/video_{}_{}.mp4".format(trial, version))
-        return video_path
+        version = self.root.status["versions"][trial - 1]
+        file = [f for f in os.listdir(os.path.join(os.getcwd(), "Stuff", "Videos")) if f.startswith(f"{trial}{version}")]             
+        return os.path.join(os.getcwd(), "Stuff", "Videos", file[0])
+
+
+# class Videos(ExperimentFrame):
+#     def __init__(self, root):
+#         super().__init__(root)
+
+#         self.root = root
+
+#         self.pathtext = ttk.Label(self, text = self.getVideo(), font = 15)
+#         self.pathtext.grid(row = 0, column = 1)
+
+#         ttk.Style().configure("TButton", font = "helvetica 15")
+#         self.next = ttk.Button(self, text = "Pokračovat", command = self.nextFun)
+#         self.next.grid(row = 1, column = 1)
+
+#         self.rowconfigure(0, weight = 1)
+#         self.rowconfigure(1, weight = 1)
+#         self.columnconfigure(0, weight = 1)
+#         self.columnconfigure(2, weight = 1)
+
+#     def getVideo(self):
+#         trial = self.root.status["videoNumber"]
+#         version = self.root.status["versions"][trial]
+#         video_path = os.path.join(os.getcwd(), "Videos/video_{}_{}.mp4".format(trial, version))
+#         return video_path
 
 
 class JOL(InstructionsFrame):
@@ -109,8 +126,13 @@ class JOL(InstructionsFrame):
         q = "Kolik informací z videa si myslíte, že si budete schopni vybavit přibližně za 5 minut?"
         options = ["0 % (nic z toho)", "20 %", "40 %", "60 %", "80 %", "100 % (vše)"]
 
-        self.measure = Measure(self, text = q, values = options, left = "", right = "", questionPosition = "above", filler = 700)
+        self.measure = Measure(self, text = q, values = options, left = "", right = "", questionPosition = "above", filler = 700, function=self.enable)
         self.measure.grid(row = 1, column = 1)
+
+        self.next["state"] = "disabled"
+
+    def enable(self):
+        self.next["state"] = "normal"
 
     # ukladani dat
 
@@ -131,7 +153,7 @@ IMI = (Questionnaire,
 
 
 def getQuestions(filename):
-    with open(filename, "r", encoding = "utf-8") as f:
+    with open(os.path.join(os.path.dirname(__file__), filename), "r", encoding = "utf-8") as f:
         questions = []        
         q = ["", [], ""]
         count = 0
@@ -152,13 +174,14 @@ Nyní odpovězte na následující otázky týkající se obsahu právě zhlédn
 """
 
 Quiz1 = (InstructionsAndUnderstanding, {"text": quizInstructions, "height": 5, "width": 80, "name": "Quiz1", "randomize": True, "showFeedback": False, "controlTexts": getQuestions("quiz1.txt"), "fillerheight": 300, "finalButton": "Pokračovat"})
+Quiz2 = (InstructionsAndUnderstanding, {"text": quizInstructions, "height": 5, "width": 80, "name": "Quiz2", "randomize": True, "showFeedback": False, "controlTexts": getQuestions("quiz2.txt"), "fillerheight": 300, "finalButton": "Pokračovat"})
+
 
 
 if __name__ == "__main__":
-    from login import Login
     os.chdir(os.path.dirname(os.getcwd()))
-    GUI([Quiz1, IMI, JOL, Login,
-         Videos])    
+    GUI([Login,
+         Videos, JOL, IMI, Quiz1])    
 
 
     # video_path = os.path.join(os.getcwd(), "Videos/video_2_1.mp4")

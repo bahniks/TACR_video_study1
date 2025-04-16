@@ -8,25 +8,24 @@ sys.path.append(os.path.join(os.getcwd(), "Stuff"))
 
 from gui import GUI
 
-#from quest import QuestInstructions
 from intros import Initial, Intro, Ending
 from demo import Demographics
-#from questionnaire import PoliticalSkill, TDMS, HEXACOinfo
 from comments import Comments
 from login import Login
 from videointros import VideoIntro1, VideoIntro2, VideoIntro3
-from videos import Videos, JOL, IMI, Quiz1
+from videos import Videos, JOL, IMI, Quiz1, Quiz2
 
 
 
 
-frames = [#Initial,
+frames = [Initial,
           Intro,
           Login,    
-          #VideoIntro1,
-          #VideoIntro2,
-          #VideoIntro3,
+          VideoIntro1,
+          VideoIntro2,
+          VideoIntro3,
           Videos, JOL, IMI, Quiz1,
+          Videos, JOL, IMI, Quiz2,
           Demographics,
           Comments,
           Ending

@@ -88,7 +88,9 @@ class Login(InstructionsFrame):
         self.root.status["versions"] = versions
         self.root.status["videoNumber"] = 1
         self.root.texts["version1"] = versions[0]
-        self.root.texts["version2"] = versions[1]                
+        self.root.texts["version2"] = versions[1]            
+        self.root.status["condition"] = random.choice(["high", "low"])    
+        self.root.texts["condition"] = 1000 if self.root.status["condition"] == "high" else 10
 
     def write(self, response):
         self.file.write("Login" + "\n")

@@ -4,6 +4,8 @@ import os
 
 from common import InstructionsFrame
 from gui import GUI
+from constants import LIMIT
+from login import Login
 
 
 instructions1 = """
@@ -28,19 +30,34 @@ instructions3 = """
 V následujícím kroku uvidíte první video ve formátu {}. Po jeho zhlédnutí Vás čeká krátké hodnocení videa a znalostní test.
 """
 
+instructions4 = """
+Děkujeme! Právě jste dokončili první část studie.
+Zhlédli jste dvě videa ve dvou různých formátech a poskytli nám své hodnocení i odpovědi na kvízové otázky.
+"""
 
+braces = "{}"
+instructions5 = f"""
+Čeká Vás dále série pěti videí, jejich ohodnocení a závěrečný kvíz k této sérii videí, za který již budete odměněni. 
 
+Pokud v závěrečném kvízu obdržíte alespoň {LIMIT} bodů z 25, obdržíte dodatečnou finanční odměnu ve výši {braces} Kč.
 
+Nyní vás čeká rozhodnutí, ve kterém formátu videí byste chtěli pokračovat pro sérii pěti videí. Po zhlédnují všech videí Vás opět čeká jejich hodnocení a finální kvíz z těchto 5 videí. 
+Váš výběr je důležitý – výše vaší odměny závisí na úspěšnosti tohoto finálního kvízu.
+"""
 
 
 VideoIntro1 = (InstructionsFrame, {"text": instructions1, "proceed": True, "height": 15})
 VideoIntro2 = (InstructionsFrame, {"text": instructions2, "proceed": True, "height": 25})
 VideoIntro3 = (InstructionsFrame, {"text": instructions3, "proceed": True, "height": 10, "update": ["version1"]})
-
+VideoIntro4 = (InstructionsFrame, {"text": instructions4, "proceed": True, "height": 10})
+VideoIntro5 = (InstructionsFrame, {"text": instructions5, "proceed": True, "height": 25, "update": ["condition"]})
 
 
 if __name__ == "__main__":
     os.chdir(os.path.dirname(os.getcwd()))
-    GUI([VideoIntro1,
+    GUI([Login, 
+        VideoIntro1,
         VideoIntro2,
-        VideoIntro3])
+        VideoIntro3,
+        VideoIntro4,
+        VideoIntro5])
