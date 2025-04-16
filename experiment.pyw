@@ -15,7 +15,7 @@ from demo import Demographics
 from comments import Comments
 from login import Login
 from videointros import VideoIntro1, VideoIntro2, VideoIntro3
-from videos import Videos
+from videos import Videos, JOL, IMI, Quiz1
 
 
 
@@ -26,11 +26,7 @@ frames = [#Initial,
           #VideoIntro1,
           #VideoIntro2,
           #VideoIntro3,
-          Videos,
-        #   QuestInstructions,
-        #   PoliticalSkill,
-        #   TDMS,
-        #   HEXACOinfo,
+          Videos, JOL, IMI, Quiz1,
           Demographics,
           Comments,
           Ending

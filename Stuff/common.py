@@ -429,13 +429,14 @@ class MultipleChoice(Canvas):
         
 
 class InstructionsAndUnderstanding(InstructionsFrame):
-    def __init__(self, root, controlTexts, name, randomize = True, fillerheight = 255, finalButton = None, **kwargs):
+    def __init__(self, root, controlTexts, name, showFeedback = True, randomize = True, fillerheight = 255, finalButton = None, **kwargs):
         super().__init__(root, **kwargs)
         if type(controlTexts) == str:
             self.controlTexts = self.root.texts[controlTexts]
         else:
             self.controlTexts = controlTexts
         self.randomize = randomize
+        self.showFeedback = showFeedback
         self.finalButton = finalButton
 
         self.controlFrame = Canvas(self, background = "white", highlightbackground = "white",
@@ -462,7 +463,7 @@ class InstructionsAndUnderstanding(InstructionsFrame):
         self.controlstate = "answer"
         
     def nextFun(self):        
-        if self.controlstate == "feedback":
+        if self.controlstate == "feedback" or not self.showFeedback:
             self.file.write(self.id + "\t" + str(self.controlNum) + "\t" + self.controlQuestion.getAnswer() + "\n")
             if self.controlNum == len(self.controlTexts):
                 self.file.write("\n")

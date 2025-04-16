@@ -6,8 +6,44 @@ from tkinter import ttk
 import os
 import vlc
 
-from common import ExperimentFrame, Measure, InstructionsFrame
+from common import ExperimentFrame, Measure, InstructionsFrame, InstructionsAndUnderstanding
+from questionnaire import Questionnaire
 from gui import GUI
+
+
+
+
+
+
+imiInstructions = """Nyní Vás prosíme o hodnocení zhlédnutého videa. 
+U každého z následujících tvrzení uveďte, nakolik je pro vás pravdivé."""
+
+imiScale = ["vůbec nepravdivé", "spíše nepravdivé", "do jisté míry pravdivé", "spíše pravdivé", "zcela pravdivé"]
+
+imiItems = ["Velmi jsem si užil(a) sledování tohoto videa",
+"Sledování tohoto videa bylo zábavné.",
+"Myslel(a) jsem, že toto video bylo nudné.",
+"Toto video mě vůbec nezaujalo.",
+"Popsal(a) bych toto video jako velmi zajímavé.",
+"Myslel(a) jsem, že toto video bylo docela příjemné.",
+"Během sledování tohoto videa jsem si uvědomoval(a), jak moc mě bavilo.",
+"Věřím, že toto video pro mě může mít nějakou hodnotu.",
+"Myslím si, že sledování tohoto videa je užitečné pro mé znalosti.",
+"Myslím si, že sledování tohoto videa je důležité, protože může rozšířit mé znalosti.",
+"Byl(a) bych ochotný/á toto video znovu sledovat, protože pro mě má hodnotu.",
+"Myslím, že sledování tohoto videa mi může pomoci zlepšit mé znalosti.",
+"Věřím, že sledování tohoto videa může být pro mě přínosné.",
+"Myslím, že toto video je důležité.",
+"Věnoval(a) jsem hodně úsilí sledování tohoto videa.",
+"Nesnažil(a) jsem se příliš sledovat toto video pozorně.",
+"Snažil(a) jsem se velmi usilovně dávat pozor při sledování videa.",
+"Bylo pro mě důležité být soustředěný(á) a dávat pozor při sledování videa.",
+"Nevynaložil(a) jsem příliš energie na sledování tohoto videa."]
+
+
+
+
+
 
 
 class Videos:
@@ -79,11 +115,49 @@ class JOL(InstructionsFrame):
     # ukladani dat
 
 
+IMI = (Questionnaire,
+                {"words": "imi.txt",
+                 "question": imiInstructions,
+                 "labels": imiScale,
+                 "values": 5,
+                 "labelwidth": 11,
+                 "text": False,
+                 "fontsize": 13,
+                 "blocksize": 5,
+                 "wraplength": 700,
+                 "filetext": "IMI",
+                 "fixedlines": 0,
+                 "pady": 3})
+
+
+def getQuestions(filename):
+    with open(filename, "r", encoding = "utf-8") as f:
+        questions = []        
+        q = ["", [], ""]
+        count = 0
+        for line in f:      
+            if count == 0:
+                q[0] = line.strip()                
+            elif count == 5:                    
+                questions.append(q)
+                q = ["", [], ""]
+                count = -1
+            else:
+                q[1].append(line.strip())               
+            count += 1
+    return questions
+
+quizInstructions = """
+Nyní odpovězte na následující otázky týkající se obsahu právě zhlédnutého videa na Prokletí znalosti. U každé otázky jsou uvedeny čtyři odpovědi, vždy jen jedna z nich je správná. (výsledek tohoto kvízu nemá vliv na výši odměny).
+"""
+
+Quiz1 = (InstructionsAndUnderstanding, {"text": quizInstructions, "height": 5, "width": 80, "name": "Quiz1", "randomize": True, "showFeedback": False, "controlTexts": getQuestions("quiz1.txt"), "fillerheight": 300, "finalButton": "Pokračovat"})
+
 
 if __name__ == "__main__":
     from login import Login
     os.chdir(os.path.dirname(os.getcwd()))
-    GUI([JOL, Login,
+    GUI([Quiz1, IMI, JOL, Login,
          Videos])    
 
 
