@@ -10,10 +10,7 @@ from common import ExperimentFrame, Measure, InstructionsFrame, InstructionsAndU
 from questionnaire import Questionnaire
 from gui import GUI
 from login import Login
-from constants import LIMIT
-
-
-
+from constants import LIMIT, TESTING
 
 
 
@@ -26,32 +23,23 @@ Nyní Vás prosíme o hodnocení této série videí.
 U každého z následujících tvrzení uveďte, nakolik je pro vás pravdivé.
 """
 
-
 imiScale = ["vůbec nepravdivé", "spíše nepravdivé", "do jisté míry pravdivé", "spíše pravdivé", "zcela pravdivé"]
 
-imiItems = ["Velmi jsem si užil(a) sledování tohoto videa",
-"Sledování tohoto videa bylo zábavné.",
-"Myslel(a) jsem, že toto video bylo nudné.",
-"Toto video mě vůbec nezaujalo.",
-"Popsal(a) bych toto video jako velmi zajímavé.",
-"Myslel(a) jsem, že toto video bylo docela příjemné.",
-"Během sledování tohoto videa jsem si uvědomoval(a), jak moc mě bavilo.",
-"Věřím, že toto video pro mě může mít nějakou hodnotu.",
-"Myslím si, že sledování tohoto videa je užitečné pro mé znalosti.",
-"Myslím si, že sledování tohoto videa je důležité, protože může rozšířit mé znalosti.",
-"Byl(a) bych ochotný/á toto video znovu sledovat, protože pro mě má hodnotu.",
-"Myslím, že sledování tohoto videa mi může pomoci zlepšit mé znalosti.",
-"Věřím, že sledování tohoto videa může být pro mě přínosné.",
-"Myslím, že toto video je důležité.",
-"Věnoval(a) jsem hodně úsilí sledování tohoto videa.",
-"Nesnažil(a) jsem se příliš sledovat toto video pozorně.",
-"Snažil(a) jsem se velmi usilovně dávat pozor při sledování videa.",
-"Bylo pro mě důležité být soustředěný(á) a dávat pozor při sledování videa.",
-"Nevynaložil(a) jsem příliš energie na sledování tohoto videa."]
+quizInstructions1 = """
+Nyní odpovězte na následující otázky týkající se obsahu právě zhlédnutého videa na Prokletí znalosti. U každé otázky jsou uvedeny čtyři odpovědi, vždy jen jedna z nich je správná. (výsledek tohoto kvízu nemá vliv na výši odměny).
+"""
+quizInstructions2 = """
+Nyní odpovězte na následující otázky týkající se obsahu právě zhlédnutého videa na Status Quo bias. U každé otázky jsou uvedeny čtyři odpovědi, vždy jen jedna z nich je správná. (výsledek tohoto kvízu nemá vliv na výši odměny).
+"""
 
+braces = "{}"
+quizInstructions3 = f"""
+Nyní vás čeká závěrečný kvíz, který ověří, co jste si z videí zapamatovali.
+Za každou správnou odpověď získáte 1 bod. 
+U každé otázky je vždy jedna správná odpověď.
 
-
-
+Připomínáme, že pokud v závěrečném kvízu obdržíte alespoň {LIMIT} bodů z 25, obdržíte dodatečnou finanční odměnu ve výši {braces} Kč.
+"""
 
 
 
@@ -66,7 +54,7 @@ class Videos(ExperimentFrame):
         self.canvas.grid(column = 1, row = 1, sticky=(N, S, E, W))
 
         self.columnconfigure(0, weight = 1)
-        self.columnconfigure(2, weight = 1) 
+        self.columnconfigure(2, weight = 1)
         self.rowconfigure(0, weight = 1)
         self.rowconfigure(2, weight = 1)
 
@@ -81,12 +69,22 @@ class Videos(ExperimentFrame):
         media = self.instance.media_new(self.video_path)
         self.player.set_media(media)
 
+        # Bind the VLC event manager to detect when the video ends
+        self.event_manager = self.player.event_manager()
+        self.event_manager.event_attach(vlc.EventType.MediaPlayerEndReached, self.on_video_end)
+
         # Play the video
         self.player.play()
 
-        ttk.Style().configure("TButton", font = "helvetica 15")
-        self.next = ttk.Button(self, text = "Pokračovat", command = self.stop)
-        self.next.grid(row = 2, column = 1)
+        ttk.Style().configure("TButton", font="helvetica 15")
+        self.next = ttk.Button(self, text="Pokračovat", command=self.stop)
+        self.next.grid(row=2, column=1)
+        if not TESTING:
+            self.next["state"] = "disabled"
+
+    def on_video_end(self, event):
+        """Callback for when the video ends."""
+        self.next["state"] = "normal"
 
     def stop(self):
         self.player.stop()
@@ -96,33 +94,8 @@ class Videos(ExperimentFrame):
     def getVideo(self):
         trial = self.root.status["videoNumber"]
         version = self.root.status["versions"][trial - 1]
-        file = [f for f in os.listdir(os.path.join(os.getcwd(), "Stuff", "Videos")) if f.startswith(f"{trial}{version}")]             
+        file = [f for f in os.listdir(os.path.join(os.getcwd(), "Stuff", "Videos")) if f.startswith(f"{trial}{version}")]
         return os.path.join(os.getcwd(), "Stuff", "Videos", file[0])
-
-
-# class Videos(ExperimentFrame):
-#     def __init__(self, root):
-#         super().__init__(root)
-
-#         self.root = root
-
-#         self.pathtext = ttk.Label(self, text = self.getVideo(), font = 15)
-#         self.pathtext.grid(row = 0, column = 1)
-
-#         ttk.Style().configure("TButton", font = "helvetica 15")
-#         self.next = ttk.Button(self, text = "Pokračovat", command = self.nextFun)
-#         self.next.grid(row = 1, column = 1)
-
-#         self.rowconfigure(0, weight = 1)
-#         self.rowconfigure(1, weight = 1)
-#         self.columnconfigure(0, weight = 1)
-#         self.columnconfigure(2, weight = 1)
-
-#     def getVideo(self):
-#         trial = self.root.status["videoNumber"]
-#         version = self.root.status["versions"][trial]
-#         video_path = os.path.join(os.getcwd(), "Videos/video_{}_{}.mp4".format(trial, version))
-#         return video_path
 
 
 class JOL(InstructionsFrame):
@@ -143,6 +116,36 @@ class JOL(InstructionsFrame):
         self.next["state"] = "normal"
 
     # ukladani dat
+
+
+class Quiz(InstructionsAndUnderstanding):
+    def __init__(self, root, name, **kwargs):
+        super().__init__(root, width = 80, name = name, randomize = True, showFeedback = False, fillerheight = 300, finalButton = "Pokračovat", **kwargs)
+
+        self.name = name
+        self.correct = 0
+
+    def nextFun(self):  
+        if self.controlQuestion.getAnswer() == self.controlTexts[self.controlNum - 1][1][0]:
+            thisCorrect = "1"
+            self.correct += 1
+        else:
+            thisCorrect = "0"
+            
+        self.file.write(self.id + "\t" + str(self.controlNum) + "\t" + self.controlQuestion.getAnswer() + "\t" + thisCorrect + "\t" + str(self.correct) + "\t" + self.root.status["condition"] + "\n")
+
+        if self.controlNum == len(self.controlTexts):
+            self.file.write("\n")
+            if self.name == "Quiz3":
+                self.root.texts["quizcorrect"] = str(self.correct)
+                if self.correct >= LIMIT:
+                    self.root.status["quizwin"] = int(self.root.texts["condition"])
+                else:
+                    self.root.status["quizwin"] = 0
+                self.root.texts["quizwin"] = str(self.root.status["quizwin"])
+            InstructionsFrame.nextFun(self)   
+        else:
+            self.createQuestion()     
 
 
 IMI = (Questionnaire,
@@ -193,53 +196,6 @@ def getQuestions(filename):
     questions.append(q)
     return questions
 
-quizInstructions1 = """
-Nyní odpovězte na následující otázky týkající se obsahu právě zhlédnutého videa na Prokletí znalosti. U každé otázky jsou uvedeny čtyři odpovědi, vždy jen jedna z nich je správná. (výsledek tohoto kvízu nemá vliv na výši odměny).
-"""
-quizInstructions2 = """
-Nyní odpovězte na následující otázky týkající se obsahu právě zhlédnutého videa na Status Quo bias. U každé otázky jsou uvedeny čtyři odpovědi, vždy jen jedna z nich je správná. (výsledek tohoto kvízu nemá vliv na výši odměny).
-"""
-
-braces = "{}"
-quizInstructions3 = f"""
-Nyní vás čeká závěrečný kvíz, který ověří, co jste si z videí zapamatovali.
-Za každou správnou odpověď získáte 1 bod. 
-U každé otázky je vždy jedna správná odpověď.
-
-Připomínáme, že pokud v závěrečném kvízu obdržíte alespoň {LIMIT} bodů z 25, obdržíte dodatečnou finanční odměnu ve výši {braces} Kč.
-"""
-
-
-class Quiz(InstructionsAndUnderstanding):
-    def __init__(self, root, name, **kwargs):
-        super().__init__(root, width = 80, name = name, randomize = True, showFeedback = False, fillerheight = 300, finalButton = "Pokračovat", **kwargs)
-
-        self.name = name
-        self.correct = 0
-
-    def nextFun(self):  
-        if self.controlQuestion.getAnswer() == self.controlTexts[self.controlNum - 1][1][0]:
-            thisCorrect = "1"
-            self.correct += 1
-        else:
-            thisCorrect = "0"
-            
-        self.file.write(self.id + "\t" + str(self.controlNum) + "\t" + self.controlQuestion.getAnswer() + "\t" + thisCorrect + "\t" + str(self.correct) + "\t" + self.root.status["condition"] + "\n")
-
-        if self.controlNum == len(self.controlTexts):
-            self.file.write("\n")
-            if self.name == "Quiz3":
-                self.root.texts["quizcorrect"] = str(self.correct)
-                if self.correct >= LIMIT:
-                    self.root.status["quizwin"] = int(self.root.texts["condition"])
-                else:
-                    self.root.status["quizwin"] = 0
-                self.root.texts["quizwin"] = str(self.root.status["quizwin"])
-            InstructionsFrame.nextFun(self)   
-        else:
-            self.createQuestion()     
-
-
 
 Quiz1 = (Quiz, {"text": quizInstructions1, "height": 5, "name": "Quiz1", "controlTexts": getQuestions("quiz1.txt")})
 Quiz2 = (Quiz, {"text": quizInstructions2, "height": 5, "name": "Quiz2", "controlTexts": getQuestions("quiz2.txt")})
@@ -249,5 +205,5 @@ Quiz3 = (Quiz, {"text": quizInstructions3, "height": 8, "name": "Quiz3", "contro
 
 if __name__ == "__main__":
     os.chdir(os.path.dirname(os.getcwd()))
-    GUI([Login, Quiz1, IMI2,
-         Videos, JOL, IMI, Quiz1])    
+    GUI([Login, Videos, Quiz1, IMI2,
+         JOL, IMI, Quiz1])
