@@ -107,7 +107,7 @@ class Ending(InstructionsFrame):
 
 
 
-Intro = (InstructionsFrame, {"text": intro, "proceed": True, "height": 30})
+Intro = (InstructionsFrame, {"text": intro, "proceed": True, "height": 20})
 Initial = (InstructionsFrame, {"text": login, "proceed": False, "height": 17, "keys": ["g", "G"]})
 
 

@@ -4,10 +4,13 @@ from tkinter import *
 from tkinter import ttk
 
 import os
+import ctypes
+import time
+import vlc
 
 from common import InstructionsFrame
 from gui import GUI
-from constants import LIMIT
+from constants import LIMIT, TESTING
 from login import Login
 
 
@@ -30,11 +33,17 @@ První část videí se zaměří na psychologické aspekty – tedy proč porad
 """
 
 instructions3 = """
-V následujícím kroku uvidíte první video. Po jeho zhlédnutí Vás čeká krátké hodnocení videa a znalostní test.
+V následujícím kroku uvidíte první video.
+
+Nyní si nasaďte sluchátka a kliknutím na tlačítko "Test zvuku" ozkoušejte, zda zvuk funguje. Pokud zvuk nefunguje, zkontrolujte prosím nastavení zvuku na Vašich sluchátkách a zkuste to znovu. Pokud problém přetrvává, zavolejte prosím experimentátora zvednutím ruky.
+
+Poté, co ozoušíte, že zvuk funguje, klikněte na tlačítko "Pokračovat" a video se spustí automaticky. Po jeho zhlédnutí Vás čeká krátké hodnocení videa a znalostní test.
 """
 
 instructions4 = """
-V následujícím kroku uvidíte druhé video ve druhém formátu. Po jeho zhlédnutí Vás čeká krátké hodnocení videa a znalostní test.
+V následujícím kroku uvidíte druhé video ve druhém formátu.
+
+Pokud nemáte nasazená sluchátka, nasaďte si je nyní. Poté klikněte na tlačítko "Pokračovat" a video se spustí automaticky. Po jeho zhlédnutí Vás čeká krátké hodnocení videa a znalostní test.
 """
 
 instructions5 = """
@@ -42,15 +51,15 @@ Děkujeme! Právě jste dokončili první část studie.
 Zhlédli jste dvě videa ve dvou různých formátech a poskytli nám své hodnocení i odpovědi na kvízové otázky.
 """
 
-braces = "{}"
-instructionsSelection = f"""
+instructionsSelection = """
 Čeká Vás dále série pěti videí, jejich ohodnocení a závěrečný kvíz k této sérii videí, za který již budete odměněni. 
 
-Pokud v závěrečném kvízu obdržíte alespoň {LIMIT} bodů z 25, obdržíte dodatečnou finanční odměnu ve výši {braces} Kč.
+Pokud v závěrečném kvízu obdržíte alespoň {} bodů z 25, obdržíte dodatečnou finanční odměnu ve výši {} Kč.
 
 Nyní vás čeká důležité rozhodnutí, tedy, ve kterém formátu videí byste chtěli pokračovat pro sérii pěti videí. 
-- <b>Formát na obrázku vlevo</b> je, jak jste viděli, ve formě prezentace s výraznou textovou podporou. V menším okně je osoba, která provádí lekcí.
-- <b>Formát na obrázku vpravo</b> je, jak jste viděli, ve  formě prezentace hlavních bodů, osoba, která provádí lekcí, je výrazněji přítomna.
+
+- <b>Formát na obrázku vlevo</b> je, jak jste viděli, ve formě prezentace {}.
+- <b>Formát na obrázku vpravo</b> je, jak jste viděli, ve formě prezentace {}.
 
 Po zhlédnují všech videí Vás opět čeká jejich hodnocení a finální kvíz z těchto 5 videí. 
 Váš výběr formátu vida je důležitý – výše Vaší odměny závisí na úspěšnosti tohoto finálního kvízu.
@@ -58,23 +67,105 @@ Váš výběr formátu vida je důležitý – výše Vaší odměny závisí na
 Formát videa vyberte kliknutím na obrázek.
 """
 
+Rtext = "s výraznou textovou podporou. V menším okně je osoba, která provádí lekcí"
+Stext = "hlavních bodů, osoba, která provádí lekcí, je výrazněji přítomna"
+
+
 instructions6 = """
 Děkujeme za Váš výběr.
 
 Nyní přejdeme k sérii pěti videí z lekce zaměřené na porady a pracovní schůzky ve Vámi zvoleném formátu.
+
+Pokud nemáte nasazená sluchátka, nasaďte si je nyní. Poté klikněte na tlačítko "Pokračovat" a první z videí se spustí automaticky.
 """
 
+
+
+class Sound(InstructionsFrame):
+    def __init__(self, root):
+        super().__init__(root, text = instructions3, proceed = True, height = 10, width = 80)    
+        self.root = root
+        self.sound_file = os.path.join(os.getcwd(), "Stuff", "Videos", "sample.mp3")
+
+        # Initialize VLC player
+        self.instance = vlc.Instance()
+        self.player = self.instance.media_player_new()
+        self.media = self.instance.media_new(self.sound_file)
+        self.player.set_media(self.media)
+        self.player.audio_set_volume(100)
+
+        # Create buttons
+        self.play_button = ttk.Button(self, text="Test zvuku", command=self.play_sound)
+        self.play_button.grid(row=2, column=1)        
+
+        if not TESTING:
+            self.next["state"] = "disabled"
+        self.next.grid(row=2, column=3)
+
+        self.text.grid(row=1, column=0, columnspan=5)
+
+        self.columnconfigure(4, weight = 1)
+
+        self.bind_all("g", self.add_volume_buttons)
+        self.bind_all("<Control-Shift-g>", self.forAdjusting)
+        self.bind_all("<Control-Shift-G>", self.forAdjusting)
+        self.adjusted = False
+
+    def forAdjusting(self, event=None):
+        self.root.attributes("-topmost", False)
+        self.root.attributes("-fullscreen", False)
+        self.root.overrideredirect(False)
+        self.adjusted = True
+
+    def add_volume_buttons(self, event=None):
+        """Add volume control buttons to the grid."""
+        self.decrease_button = ttk.Button(self, text="-", command=self.decrease_volume)
+        self.decrease_button.grid(row=3, column=1)
+
+        self.increase_button = ttk.Button(self, text="+", command=self.increase_volume)
+        self.increase_button.grid(row=3, column=3)
+
+    def play_sound(self):
+        """Play the sound file."""
+        self.player.stop()  # Stop any currently playing media
+        self.player.play()
+        self.root.after(3000, lambda: self.next.config(state="normal"))
+
+    def nextFun(self):
+        if self.adjusted and not TESTING:
+            self.root.attributes("-topmost", True)
+            self.root.attributes("-fullscreen", True)
+            self.root.overrideredirect(True)
+        self.player.stop()        
+        super().nextFun()
+
+    def increase_volume(self):       
+        self.press_key(0xAF)
+
+    def decrease_volume(self):              
+        self.press_key(0xAE)
+
+    def press_key(self, hexKeyCode):
+        ctypes.windll.user32.keybd_event(hexKeyCode, 0, 0x0001, 0)
+        time.sleep(0.1)
+        ctypes.windll.user32.keybd_event(hexKeyCode, 0, 0x0002, 0)
+        
 
 
 
 
 class Selection(InstructionsFrame):
     def __init__(self, root):
-        super().__init__(root, text = instructionsSelection, proceed = True, update = ["condition"], height = 18, width = 90)
+        l, r = root.status["versions"]
+        t1 = eval(f"{l}text")
+        t2 = eval(f"{r}text")
+        text = instructionsSelection.format(LIMIT, root.texts["condition"], t1, t2)
+
+        super().__init__(root, text = text, proceed = True, height = 19, width = 90)
 
         ttk.Style().configure("Padded.TButton", padding = (5,5))   
 
-        l, r = self.root.status["versions"]
+        
 
         self.left = ttk.Button(self, text="", command=lambda: self.response(l))
         self.image_left = PhotoImage(file=os.path.join(os.getcwd(), "Stuff", f"{l}.png"))
@@ -114,7 +205,7 @@ class Selection(InstructionsFrame):
 
     def nextFun(self):
         self.root.status["versions"].extend([self.choice for i in range(5)])
-        self.file.write("Selection\n" + "\t".join([self.id, self.choice]) + "\n\n")
+        self.file.write("Selection\n" + "\t".join([self.id, self.choice, self.root.status["condition"]]) + "\n\n")
         super().nextFun()
 
 
@@ -124,7 +215,7 @@ class Selection(InstructionsFrame):
 
 VideoIntro1 = (InstructionsFrame, {"text": instructions1, "proceed": True, "height": 15})
 VideoIntro2 = (InstructionsFrame, {"text": instructions2, "proceed": True, "height": 25})
-VideoIntro3 = (InstructionsFrame, {"text": instructions3, "proceed": True, "height": 10})
+#VideoIntro3 = (InstructionsFrame, {"text": instructions3, "proceed": True, "height": 10})
 VideoIntro4 = (InstructionsFrame, {"text": instructions4, "proceed": True, "height": 10})
 VideoIntro5 = (InstructionsFrame, {"text": instructions5, "proceed": True, "height": 10})
 VideoIntro6 = (InstructionsFrame, {"text": instructions6, "proceed": True, "height": 10})
@@ -132,10 +223,9 @@ VideoIntro6 = (InstructionsFrame, {"text": instructions6, "proceed": True, "heig
 
 if __name__ == "__main__":
     os.chdir(os.path.dirname(os.getcwd()))
-    GUI([Login, 
+    GUI([Login,  Sound,
     Selection, #
-        VideoIntro1,
+        Sound, VideoIntro1,
         VideoIntro2,
-        VideoIntro3,
         VideoIntro4,
         Selection])

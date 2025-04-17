@@ -12,8 +12,8 @@ from intros import Initial, Intro, Ending
 from demo import Demographics
 from comments import Comments
 from login import Login
-from videointros import VideoIntro1, VideoIntro2, VideoIntro3, VideoIntro4, VideoIntro5, Selection, VideoIntro6
-from videos import Videos, JOL, IMI, Quiz1, Quiz2, IMI2, Quiz3
+from videointros import VideoIntro1, VideoIntro2, Sound, VideoIntro4, VideoIntro5, Selection, VideoIntro6
+from videos import Videos, JOL, IMI1, Quiz1, Quiz2, IMI2, Quiz3, IMI3
 from quest import QuestInstructions, Hexaco
 from questionnaire import NFC, Boredom, Social
 
@@ -25,15 +25,15 @@ frames = [Initial,
           Login,    
           VideoIntro1,
           VideoIntro2,
-          VideoIntro3,
-          Videos, JOL, IMI, Quiz1,
+          Sound,
+          Videos, JOL, IMI1, Quiz1,
           VideoIntro4,
-          Videos, JOL, IMI, Quiz2,
+          Videos, JOL, IMI2, Quiz2,
           VideoIntro5,
           Selection,
           VideoIntro6,
           Videos, Videos, Videos, Videos, Videos,
-          IMI2,
+          IMI3,
           Quiz3,
           QuestInstructions,
           NFC,

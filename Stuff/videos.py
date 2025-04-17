@@ -17,7 +17,7 @@ from constants import LIMIT, TESTING
 imiInstructions = """Nyní Vás prosíme o hodnocení zhlédnutého videa. 
 U každého z následujících tvrzení uveďte, nakolik je pro vás pravdivé."""
 
-imiInstructions2 = """Skvělé! Dokončili jste všech 5 videí.
+imiInstructions2 = """Skvělé! Dokončili jste všech 5 videí. Můžete si sundat sluchátka, nebudete je již potřebovat.
 
 Nyní Vás prosíme o hodnocení této série videí.
 U každého z následujících tvrzení uveďte, nakolik je pro vás pravdivé.
@@ -115,7 +115,11 @@ class JOL(InstructionsFrame):
     def enable(self):
         self.next["state"] = "normal"
 
-    # ukladani dat
+    def write(self):
+        trial = self.root.status["videoNumber"]
+        version = self.root.status["versions"][trial - 1]
+        self.file.write("JOL\n")
+        self.file.write(self.id + "\t" + trial + "\t" + version + "\t" + self.measure.getAnswer() + "\n\n")
 
 
 class Quiz(InstructionsAndUnderstanding):
@@ -132,7 +136,7 @@ class Quiz(InstructionsAndUnderstanding):
         else:
             thisCorrect = "0"
             
-        self.file.write(self.id + "\t" + str(self.controlNum) + "\t" + self.controlQuestion.getAnswer() + "\t" + thisCorrect + "\t" + str(self.correct) + "\t" + self.root.status["condition"] + "\n")
+        self.file.write(self.id + "\t" + str(self.controlNum) + "\t" + self.controlQuestion.getAnswer() + "\t" + thisCorrect + "\t" + str(self.correct) + "\t" + self.root.status["condition"] + "\t" + self.root.status["versions"][int(self.name[-1])-1] + "\n")
 
         if self.controlNum == len(self.controlTexts):
             self.file.write("\n")
@@ -148,7 +152,7 @@ class Quiz(InstructionsAndUnderstanding):
             self.createQuestion()     
 
 
-IMI = (Questionnaire,
+IMI1 = (Questionnaire,
                 {"words": "imi.txt",
                  "question": imiInstructions,
                  "labels": imiScale,
@@ -158,12 +162,25 @@ IMI = (Questionnaire,
                  "fontsize": 13,
                  "blocksize": 5,
                  "wraplength": 700,
-                 "filetext": "IMI",
+                 "filetext": "IMI1",
                  "fixedlines": 0,
                  "pady": 3})
 
-
 IMI2 = (Questionnaire,
+                {"words": "imi.txt",
+                 "question": imiInstructions,
+                 "labels": imiScale,
+                 "values": 5,
+                 "labelwidth": 11,
+                 "text": False,
+                 "fontsize": 13,
+                 "blocksize": 5,
+                 "wraplength": 700,
+                 "filetext": "IMI2",
+                 "fixedlines": 0,
+                 "pady": 3})
+
+IMI3 = (Questionnaire,
                 {"words": "imi2.txt",
                  "question": imiInstructions2,
                  "labels": imiScale,
@@ -173,7 +190,7 @@ IMI2 = (Questionnaire,
                  "fontsize": 13,
                  "blocksize": 5,
                  "wraplength": 700,
-                 "filetext": "IMI",
+                 "filetext": "IMI3",
                  "fixedlines": 0,
                  "pady": 3})
 
@@ -206,4 +223,4 @@ Quiz3 = (Quiz, {"text": quizInstructions3, "height": 8, "name": "Quiz3", "contro
 if __name__ == "__main__":
     os.chdir(os.path.dirname(os.getcwd()))
     GUI([Login, Videos, Quiz1, IMI2,
-         JOL, IMI, Quiz1])
+         JOL, IMI1, Quiz1])
