@@ -50,17 +50,6 @@ class Login(InstructionsFrame):
                     self.write(response)
                     self.nextFun()                      
                     break
-                elif response == "login_successful" or response == "already_logged":
-                    self.changeText("Přihlášen")
-                    self.root.status["logged"] = True
-                elif response == "ongoing":
-                    self.changeText("Do studie se již nelze připojit")
-                elif response == "no_open":
-                    self.changeText("Studie není otevřena")
-                elif response == "closed":
-                    self.changeText("Studie je uzavřena pro přihlašování")
-                elif response == "not_grouped":
-                    self.changeText("V experimentu nezbylo místo. Zavolejte prosím experimentátora zvednutím ruky.")
             count += 1                  
             sleep(0.1)        
 

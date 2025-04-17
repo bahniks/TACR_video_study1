@@ -132,6 +132,9 @@ class Sound(InstructionsFrame):
         self.root.after(3000, lambda: self.next.config(state="normal"))
 
     def nextFun(self):
+        self.unbind_all("g")
+        self.unbind_all("<Control-Shift-g>")
+        self.unbind_all("<Control-Shift-G>")
         if self.adjusted and not TESTING:
             self.root.attributes("-topmost", True)
             self.root.attributes("-fullscreen", True)
