@@ -17,6 +17,13 @@ from constants import TESTING, AUTOFILL
 
 intro = "Označte, do jaké míry souhlasíte s následujícímí tvrzeními, na poskytnuté škále."
 
+nfcIntro = "Přečtěte si prosíme každé tvrzení a ohodnoťte, nakolik je pro Vás ne/charakteristické."
+
+boredomIntro = """Přečtěte si prosíme každé tvrzení a označte, nakolik s ním souhlasíte.
+Vaším úkolem je odpovídat co nejupřímněji podle toho, co nejlépe vystihuje Vaše běžné prožívání a chování."""
+
+socialIntro = """Níže naleznete několik otázek týkajících se Vašeho vztahu k sociálním médiím (Facebook, Twitter, Instagram, TikTok apod.) a jejich používání. 
+U každé otázky vyberte tu variantu odpovědi, která vás nejlépe vystihuje."""
 
 
 
@@ -121,9 +128,6 @@ class Questionnaire(ExperimentFrame):
             self.file.write(self.id + "\t" + word + "\t" + self.variables[word].get() + "\n")
 
 
-
-nfcIntro = "Přečtěte si prosíme každé tvrzení a ohodnoťte, nakolik je pro Vás ne/charakteristické."
-
 NFC = (Questionnaire,
                 {"words": "nfc.txt",
                  "question": nfcIntro,
@@ -142,10 +146,6 @@ NFC = (Questionnaire,
                  "fixedlines": 3,
                  "pady": 3})
 
-
-
-boredomIntro = """Přečtěte si prosíme každé tvrzení a označte, nakolik s ním souhlasíte.
-Vaším úkolem je odpovídat co nejupřímněji podle toho, co nejlépe vystihuje Vaše běžné prožívání a chování."""
 
 Boredom = (Questionnaire,
                 {"words": "boredom.txt",
@@ -166,12 +166,6 @@ Boredom = (Questionnaire,
                  "filetext": "Boredom",
                  "fixedlines": 2,
                  "pady": 5})
-
-
-
-
-socialIntro = """Níže naleznete několik otázek týkajících se Vašeho vztahu k sociálním médiím (Facebook, Twitter, Instagram, TikTok apod.) a jejich používání. 
-U každé otázky vyberte tu variantu odpovědi, která vás nejlépe vystihuje."""
 
 
 Social = (Questionnaire,
@@ -196,4 +190,4 @@ Social = (Questionnaire,
 
 if __name__ == "__main__":
     os.chdir(os.path.dirname(os.getcwd()))
-    GUI([Social])
+    GUI([NFC])
