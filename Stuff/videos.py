@@ -130,6 +130,12 @@ class Quiz(InstructionsAndUnderstanding):
         self.name = name
         self.correct = 0
 
+        self.rowconfigure(0, weight = 5)
+        self.rowconfigure(1, weight = 1)
+        self.rowconfigure(2, weight = 1) 
+        self.rowconfigure(3, weight = 1)   
+        self.rowconfigure(4, weight = 5)
+
     def nextFun(self):  
         if self.controlQuestion.getAnswer() == self.controlTexts[self.controlNum - 1][1][0]:
             thisCorrect = "1"

@@ -51,8 +51,7 @@ Děkujeme! Právě jste dokončili první část studie.
 Zhlédli jste dvě videa ve dvou různých formátech a poskytli nám své hodnocení i odpovědi na kvízové otázky.
 """
 
-instructionsSelection = """
-Čeká Vás dále série pěti videí, jejich ohodnocení a závěrečný kvíz k této sérii videí, za který již budete odměněni. Otázky opět budou různé náročnosti, od lehkých po zaměřené na detaily výkladu.
+instructionsSelection = """Čeká Vás dále série pěti videí, jejich ohodnocení a závěrečný kvíz k této sérii videí, za který již budete odměněni. Otázky opět budou různé náročnosti, od lehkých po zaměřené na detaily výkladu.
 
 Pokud v závěrečném kvízu obdržíte alespoň {} bodů z 25, obdržíte dodatečnou finanční odměnu ve výši {} Kč.
 
@@ -66,8 +65,7 @@ Nyní vás čeká důležité rozhodnutí, tedy, ve kterém formátu videí byst
 Po zhlédnují všech videí Vás opět čeká jejich hodnocení a finální kvíz z těchto 5 videí. 
 Váš výběr formátu vida je důležitý – výše Vaší odměny závisí na úspěšnosti tohoto finálního kvízu.
 
-Formát videa vyberte kliknutím na obrázek.
-"""
+Formát videa vyberte kliknutím na obrázek."""
 
 Rtext = "statické prezentace s výraznou textovou podporou. V menším okně je osoba, která provádí lekcí"
 Stext = "dynamické prezentace hlavních bodů, otázek posluchačům a osoba, která provádí lekcí, je výrazněji přítomna"
@@ -85,7 +83,7 @@ Pokud nemáte nasazená sluchátka, nasaďte si je nyní. Poté klikněte na tla
 
 class Sound(InstructionsFrame):
     def __init__(self, root):
-        super().__init__(root, text = instructions3, proceed = True, height = 10, width = 80)    
+        super().__init__(root, text = instructions3, proceed = True, height = 11, width = 80)    
         self.root = root
         self.sound_file = os.path.join(os.getcwd(), "Stuff", "Videos", "sample.mp3")
 
@@ -166,11 +164,9 @@ class Selection(InstructionsFrame):
         t2 = eval(f"{r}text")
         text = instructionsSelection.format(LIMIT, root.texts["condition"], t1, t2)
 
-        super().__init__(root, text = text, proceed = True, height = 19, width = 90)
+        super().__init__(root, text = text, proceed = True, height = 20, width = 90)
 
-        ttk.Style().configure("Padded.TButton", padding = (5,5))   
-
-        
+        ttk.Style().configure("Padded.TButton", padding = (5,5))        
 
         self.left = ttk.Button(self, text="", command=lambda: self.response(l))
         self.image_left = PhotoImage(file=os.path.join(os.getcwd(), "Stuff", f"{l}.png"))
@@ -195,8 +191,9 @@ class Selection(InstructionsFrame):
 
         self.columnconfigure(4, weight = 1)
 
-        self.rowconfigure(2, weight = 1)
-        self.rowconfigure(3, weight = 2)
+        self.rowconfigure(1, weight = 1)
+        self.rowconfigure(2, weight = 2)
+        self.rowconfigure(3, weight = 1)
         self.rowconfigure(4, weight = 3)
 
 

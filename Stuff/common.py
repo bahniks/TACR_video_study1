@@ -307,22 +307,22 @@ class Measure(Canvas):
         self["highlightbackground"] = "white"
         self["highlightcolor"] = "white"
 
-        ttk.Style().configure("TRadiobutton", background = "white", font = "helvetica 14")
+        ttk.Style().configure("TRadiobutton", background = "white", font = "helvetica 15")
 
         if text:        
             if questionPosition == "next":
-                self.question = ttk.Label(self, text = text, background = "white", anchor = "e", font = "helvetica 14")
+                self.question = ttk.Label(self, text = text, background = "white", anchor = "e", font = "helvetica 15")
                 self.question.grid(column = 0, row = 2, sticky = E, padx = 5)
             elif questionPosition == "above":
                 self.question = ttk.Label(self, text = text, background = "white", anchor = "center",
-                                          font = "helvetica 14")
+                                          font = "helvetica 15")
                 self.question.grid(column = 0, row = 0, columnspan = 4, pady = 5)
 
         if labelPosition != "none":
             self.left = ttk.Label(self, text = "{:>15}".format(left), background = "white",
-                                  font = "helvetica 14")
+                                  font = "helvetica 15")
             self.right = ttk.Label(self, text = "{:<15}".format(right), background = "white",
-                                   font = "helvetica 14")
+                                   font = "helvetica 15")
         if labelPosition == "above":
             self.left.grid(column = 1, row = 1, sticky = W)
             self.right.grid(column = 2, row = 1, sticky = E)
@@ -332,9 +332,9 @@ class Measure(Canvas):
 
         if middle:
             self.middle = ttk.Label(self, text = middle, background = "white",
-                                    font = "helvetica 14")
+                                    font = "helvetica 15")
             self.middle.grid(column = 1, row = 1, columnspan = 2)
-            self.question["font"] = "helvetica 16"
+            self.question["font"] = "helvetica 15"
 
         self.scale = Canvas(self, background = "white", highlightbackground = "white",
                             highlightcolor = "white")
@@ -425,8 +425,7 @@ class MultipleChoice(Canvas):
         self.feedback["text"] = self.feedbackTexts[self.order[int(self.answer.get()) - 1]]
         for radio in self.radios:
             radio["state"] = "disabled"
-        
-        
+                
 
 class InstructionsAndUnderstanding(InstructionsFrame):
     def __init__(self, root, controlTexts, name, showFeedback = True, randomize = True, fillerheight = 255, finalButton = None, **kwargs):

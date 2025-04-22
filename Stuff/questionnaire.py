@@ -101,8 +101,7 @@ class Questionnaire(ExperimentFrame):
                                state = "disabled")
         self.next.grid(column = 1, row = 2)
 
-        self.question = ttk.Label(self, text = question, background = "white",
-                                  font = "helvetica 15")
+        self.question = ttk.Label(self, text = question, background = "white", font = "helvetica 15")
         self.question.grid(column = 1, row = 0, sticky = S, pady = 10)
 
         self.columnconfigure(0, weight = 1)
