@@ -1,4 +1,6 @@
 #! python3
+# -*- coding: utf-8 -*- 
+
 from tkinter import *
 from tkinter import ttk
 from collections import defaultdict
@@ -15,11 +17,21 @@ from constants import BONUS, TESTING
 
 ################################################################################
 # TEXTS
-questintro = """
-V následující části studie budete odpovídat na otázky o sobě, Vašich postojích a názorech. Tato část by měla trvat asi 5 minut.
+questintro = f"""
+Váš výsledek z finálního kvízu a Vaši výši odměny se dozvíte na konci celé studie. 
+
+V následující části studie budete odpovídat na otázky o sobě, Vašich postojích a názorech. Tato část by měla trvat asi 15 minut.
 
 Každou otázku si pečlivě přečtěte. Snažte se však na otázky nemyslet příliš dlouho; první odpověď, která Vám přijde na mysl, je obvykle nejlepší.
+
+Mezi dotazníky bude jedna položka měřící Vaší pozornost, pokud odpovíte správně, dostanete dodatečných {BONUS} Kč.
 """
+
+hexacoinstructions = """Na následujících stránkách najdete řadu prohlášení o Vaší osobě.
+
+Přečtěte si prosím každé prohlášení a rozhodněte se, do jaké míry s ním souhlasíte, nebo nesouhlasíte.
+"""
+
 
 attentiontext = "Chcete-li prokázat, že zadání věnujete pozornost, vyberte možnost "
 
@@ -164,15 +176,15 @@ class Likert(Canvas):
         if attentiontext in self.text:
             if not "attention_checks" in self.root.root.status:
                 self.root.root.status["attention_checks"] = 0
-                self.root.root.texts["attention1"] = "Neodpověděli"
-                self.root.root.texts["attention2"] = "nevyhráváte"
-                self.root.root.texts["bonus"] = 0
+                self.root.root.texts["attention1"] = "Neodpověděl(a)"
+                self.root.root.texts["attention2"] = "Nezískáváte"
+                self.root.root.status["bonus"] = 0
             if self.answer.get() == self.text[-2]:
                 self.root.root.status["attention_checks"] += 1
                 if self.root.root.status["attention_checks"] == self.root.checksNumber:
-                    self.root.root.texts["attention1"] = "Odpověděli"
-                    self.root.root.texts["attention2"] = "vyhráváte"
-                    self.root.root.texts["bonus"] = BONUS
+                    self.root.root.texts["attention1"] = "Odpověděl(a)"
+                    self.root.root.texts["attention2"] = "Získáváte"
+                    self.root.root.status["bonus"] = BONUS
         else:
             ans = "{}\t{}\t{}\n".format(self.short, self.answer.get(), self.text.replace("\t", " "))
             self.root.file.write(self.root.id + "\t" + ans)
@@ -183,13 +195,11 @@ class Likert(Canvas):
 
 
 
-# polwillintro = "Označte, do jaké míry souhlasíte s následujícímí tvrzeními, na poskytnuté škále."
-
-# class PoliticalWill(Quest):
-#     def __init__(self, root):
-#         super().__init__(root, 9, "polwill.txt", "Political Will", instructions = polwillintro, width = 85,
-#                          left = "Zcela nesouhlasím", right = "Zcela souhlasím",
-#                          height = 3, options = 7, center = True)
+class Hexaco(Quest):
+    def __init__(self, root):
+        super().__init__(root, 11, "hexaco.txt", "Hexaco", instructions = hexacoinstructions, width = 85,
+                         left = "silně nesouhlasím", right = "silně souhlasím", checks = 1,
+                         height = 3, options = 5, center = True)
 
 
 
@@ -200,5 +210,5 @@ QuestInstructions = (InstructionsFrame, {"text": questintro, "height": 15})
 
 if __name__ == "__main__":
     os.chdir(os.path.dirname(os.getcwd()))
-    GUI([QuestInstructions
+    GUI([Hexaco, QuestInstructions
          ])

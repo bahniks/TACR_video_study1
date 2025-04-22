@@ -10,7 +10,7 @@ from time import sleep
 from common import InstructionsFrame
 from gui import GUI
 
-from constants import PARTICIPATION_FEE, URL
+from constants import PARTICIPATION_FEE, URL, BONUS
 from login import Login
 
 
@@ -32,13 +32,17 @@ Všechny informace, které v průběhu studie uvidíte, jsou pravdivé a nebudet
 
 ending = """Toto je konec experimentu.
 
-Za účast na studii dostáváte {} Kč. {}Vaše odměna za tuto studii je tedy dohromady {} Kč, zaokrouhleno na desítky korun nahoru získáváte {} Kč. Napište prosím tuto (zaokrouhlenou) částku do příjmového dokladu na stole před Vámi. 
+Za účast na studii dostáváte {} Kč. 
+{} jste správně na kontrolní otázku v dotazníku. {} tedy dodatečných {} Kč. 
+V závěrečném kvízu jste dosáhl(a) {} správných odpovědí z 25. Na základě výsledků v závěrečném kvízu získáváte tedy navíc {} Kč.
+
+<b>Vaše odměna za tuto studii je dohromady {} Kč. Napište prosím tuto částku do příjmového dokladu na stole před Vámi.</b> 
 
 Studie založená na datech získaných v tomto experimentu bude volně dostupná na stránkách Centra laboratorního a experimentálního výzkumu FPH VŠE, krátce po vyhodnocení dat a publikaci výsledků. 
 
 <b>Žádáme Vás, abyste nesděloval(a) detaily této studie možným účastníkům, aby jejich volby a odpovědi nebyly ovlivněny a znehodnoceny.</b>
   
-Můžete si vzít všechny svoje věci a vyplněný příjmový doklad a záznamový arch, a aniž byste rušil(a) ostatní účastníky, odeberte se do vedlejší místnosti za výzkumným asistentem, od kterého obdržíte svoji odměnu. 
+Můžete si vzít všechny svoje věci a vyplněný příjmový doklad, a aniž byste rušil(a) ostatní účastníky, odeberte se do vedlejší místnosti za výzkumným asistentem, od kterého obdržíte svoji odměnu. 
 
 Toto je konec experimentu. Děkujeme za Vaši účast!
  
@@ -69,14 +73,13 @@ Klikněte na tlačítko Pokračovat pro přihlášení do studie.
 
 class Ending(InstructionsFrame):
     def __init__(self, root):
-        root.texts["videos"] = "X"
-        root.texts["reward"] = int(root.texts["lottery_win"]) + PARTICIPATION_FEE # pridat dalsi casti
-        root.texts["rounded_reward"] = ceil(root.texts["reward"] / 10) * 10
+        root.texts["reward"] = PARTICIPATION_FEE + root.status["bonus"] + root.status["quizwin"]
         root.texts["participation_fee"] = PARTICIPATION_FEE
-        updates = ["videos_reward", "participation_fee", "reward", "rounded_reward"]
-        super().__init__(root, text = ending, keys = ["g", "G"], proceed = False, height = 24, update = updates)
+        root.texts["bonus"] = BONUS
+        updates = ["participation_fee", "attention1", "attention2", "bonus", "quizcorrect", "quizwin", "reward"]
+        super().__init__(root, text = ending, keys = ["g", "G"], proceed = False, height = 25, update = updates)
         self.file.write("Ending\n")
-        self.file.write(self.id + "\t" + str(root.texts["rounded_reward"]) + "\n\n")
+        self.file.write(self.id + "\t" + str(root.texts["reward"]) + "\n\n")
 
     def run(self):
         self.sendInfo()
@@ -84,7 +87,7 @@ class Ending(InstructionsFrame):
     def sendInfo(self):
         while True:
             self.update()    
-            data = urllib.parse.urlencode({'id': self.root.id, 'round': -99, 'offer': self.root.texts["rounded_reward"]})
+            data = urllib.parse.urlencode({'id': self.root.id, 'round': -99, 'offer': self.root.texts["reward"]})
             data = data.encode('ascii')
             if URL == "TEST":
                 response = "ok"
@@ -104,7 +107,7 @@ class Ending(InstructionsFrame):
 
 
 
-Intro = (InstructionsFrame, {"text": intro, "proceed": True, "height": 30})
+Intro = (InstructionsFrame, {"text": intro, "proceed": True, "height": 20})
 Initial = (InstructionsFrame, {"text": login, "proceed": False, "height": 17, "keys": ["g", "G"]})
 
 
