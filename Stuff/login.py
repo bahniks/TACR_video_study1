@@ -42,8 +42,9 @@ class Login(InstructionsFrame):
                     try:
                         with urllib.request.urlopen(URL, data = data) as f:
                             response = f.read().decode("utf-8") 
+                        self.root.status["logged"] = True
                     except Exception:
-                        self.changeText("Server nedostupný")
+                        self.changeText("Server nedostupný")                    
                 if "start" in response:
                     self.update_intros()
                     self.progressBar.stop()

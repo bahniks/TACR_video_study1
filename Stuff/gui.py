@@ -54,15 +54,28 @@ class GUI(Tk):
         self.rowconfigure(0, weight = 1)
 
         if load and URL != "TEST":            
-            with open('temp.json') as f:
-                data = json.load(f)            
-            message = urllib.parse.urlencode({"id": data["id"], "round": data["count"], "offer": "continue"})
-            message = message.encode('ascii')
-            with urllib.request.urlopen(URL, data = message) as f:
-                response = f.read().decode("utf-8")                
-            if response == "continue":
-                for key, value in data.items():
-                    setattr(self, key, value)    
+            if os.path.exists("temp.json"):
+                ans = messagebox.askyesno(
+                    message="Chcete pokračovat tam, kde jste skončili?",
+                    icon="question",
+                    parent=self,
+                    title="Pokračovat v experimentu?"
+                )
+                if ans:
+                    with open('temp.json') as f:
+                        data = json.load(f)            
+                    message = urllib.parse.urlencode({"id": data["id"], "round": data["count"], "offer": "continue"})
+                    message = message.encode('ascii')
+                    with urllib.request.urlopen(URL, data = message) as f:
+                        response = f.read().decode("utf-8")                
+                    if response == "continue":
+                        for key, value in data.items():
+                            setattr(self, key, value)  
+                    else:
+                        load = False  
+                else:
+                    load = False
+                self.focus_force()
 
         if TESTING:
             self.title("TEST " + self.id)
@@ -106,7 +119,7 @@ class GUI(Tk):
                 self.frame = nxt[0](self, **nxt[1])
             else:
                 self.frame = nxt(self)
-            self.frame.grid(row = 0, column = 0, sticky = (N, S, E, W))            
+            self.frame.grid(row = 0, column = 0, sticky = (N, S, E, W))     
             if self.status["logged"]:
                 self.frame.sendData({'id': self.id, 'round': self.count, 'offer': "progress"}, pause = 0.01, trials = 5)
 

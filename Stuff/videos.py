@@ -209,7 +209,7 @@ def getQuestions(filename):
         count = 0
         for line in f:      
             if count == 0:
-                q[0] = line.strip()                
+                q[0] = line.strip().replace("\\n", "\n")
             elif count == 5:                    
                 questions.append(q)
                 q = ["", [], ""]
@@ -226,8 +226,7 @@ Quiz2 = (Quiz, {"text": quizInstructions2, "height": 5, "name": "Quiz2", "contro
 Quiz3 = (Quiz, {"text": quizInstructions3, "height": 8, "name": "Quiz3", "controlTexts": getQuestions("quiz3.txt"), "update": ["condition"]})
 
 
-
 if __name__ == "__main__":
     os.chdir(os.path.dirname(os.getcwd()))
-    GUI([Login, Videos, Quiz1, IMI2,
+    GUI([Login, Videos, IMI2,
          JOL, IMI1, Quiz1])
