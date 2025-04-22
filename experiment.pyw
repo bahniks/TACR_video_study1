@@ -21,8 +21,8 @@ from questionnaire import NFC, Boredom, Social
 
 
 frames = [Initial,
-          Intro,
-          Login,    
+          Login, 
+          Intro,             
           VideoIntro1,
           VideoIntro2,
           Sound,

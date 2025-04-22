@@ -17,7 +17,7 @@ from login import Login
 instructions1 = """
 Než přistoupíme k hlavní části studie, připravili jsme pro vás krátkou úvodní část, ve které Vás seznámíme s podobou videí, jejich strukturou a způsobem následného vyplňování úkolů.
 
-Nejprve představíme téma, o kterém všechna videa jsou - tedy jak pořádat pracovní schůzky a porady. Poté uvidíte dvě krátká videa. Každé z nich je zpracováno v odlišném formátu.
+Nejprve představíme lekci - téma, o kterém všechna videa jsou - tedy jak pořádat pracovní schůzky a porady. Poté uvidíte dvě krátká videa. Každé z nich je zpracováno v odlišném formátu.
 
 Cílem této části je, abyste se seznámili s oběma formáty videí, dali na ně zpětnou vazbu a zároveň si osvojili způsob, jakým probíhá krátký kvíz o obsahu videí. Tato část není nijak peněžně odměněna, slouží k seznámení s průběhem další části studie.
 """
@@ -29,15 +29,15 @@ Podle studií z oblasti organizační psychologie je více než polovina času s
 
 Všechna videa v této lekci Vám nabídnou konkrétní rady, jak porady vést efektivněji a jak se na nich lépe uplatnit i jako účastník. Doporučení vycházejí z výzkumů v oblasti psychologie a projektového managementu z různých částí světa.
 
-První část videí se zaměří na psychologické aspekty – tedy proč porady často nefungují, jaké tendence vedou ke zbytečnému komplikování problémů a proč někdy ztrácíme čas. Následující videa nabídnou praktické tipy – nejprve pro organizátory porad, dále pro samotné účastníky a nakonec se zaměříme na specifika online meetingů.
+Videa se zaměří na psychologické aspekty – tedy proč porady často nefungují, jaké tendence vedou ke zbytečnému komplikování problémů a proč někdy ztrácíme čas. Videa také nabídnou praktické tipy – nejprve pro organizátory porad, dále pro samotné účastníky a nakonec se zaměří na specifika online meetingů.
 """
 
 instructions3 = """
 V následujícím kroku uvidíte první video.
 
-Nyní si nasaďte sluchátka a kliknutím na tlačítko "Test zvuku" ozkoušejte, zda zvuk funguje. Pokud zvuk nefunguje, zkontrolujte prosím nastavení zvuku na Vašich sluchátkách a zkuste to znovu. Pokud problém přetrvává, zavolejte prosím experimentátora zvednutím ruky.
+Nyní si nasaďte sluchátka a kliknutím na tlačítko "Test zvuku" ozkoušejte, zda zvuk funguje. Pokud zvuk nefunguje, zkontrolujte prosím nastavení zvuku na Vašich sluchátkách a zkuste to znovu. Pokud problém přetrvává, zavolejte prosím výzkumného asistenta zvednutím ruky.
 
-Poté, co ozoušíte, že zvuk funguje, klikněte na tlačítko "Pokračovat" a video se spustí automaticky. Po jeho zhlédnutí Vás čeká krátké hodnocení videa a znalostní test.
+<b>Poté, co ozkoušíte, že zvuk funguje, klikněte na tlačítko "Pokračovat" a video se spustí automaticky.</b> Po jeho zhlédnutí Vás čeká krátké hodnocení videa a znalostní test.
 """
 
 instructions4 = """
@@ -52,14 +52,16 @@ Zhlédli jste dvě videa ve dvou různých formátech a poskytli nám své hodno
 """
 
 instructionsSelection = """
-Čeká Vás dále série pěti videí, jejich ohodnocení a závěrečný kvíz k této sérii videí, za který již budete odměněni. 
+Čeká Vás dále série pěti videí, jejich ohodnocení a závěrečný kvíz k této sérii videí, za který již budete odměněni. Otázky opět budou různé náročnosti, od lehkých po zaměřené na detaily výkladu.
 
 Pokud v závěrečném kvízu obdržíte alespoň {} bodů z 25, obdržíte dodatečnou finanční odměnu ve výši {} Kč.
 
 Nyní vás čeká důležité rozhodnutí, tedy, ve kterém formátu videí byste chtěli pokračovat pro sérii pěti videí. 
 
-- <b>Formát na obrázku vlevo</b> je, jak jste viděli, ve formě prezentace {}.
-- <b>Formát na obrázku vpravo</b> je, jak jste viděli, ve formě prezentace {}.
+- <b>Formát na obrázku vlevo</b> je, jak jste viděli, ve formě {}.
+- <b>Formát na obrázku vpravo</b> je, jak jste viděli, ve formě {}.
+
+<b>Přestože se videa liší formou, oba formáty obsahují zcela identické informace.</b>
 
 Po zhlédnují všech videí Vás opět čeká jejich hodnocení a finální kvíz z těchto 5 videí. 
 Váš výběr formátu vida je důležitý – výše Vaší odměny závisí na úspěšnosti tohoto finálního kvízu.
@@ -67,8 +69,8 @@ Váš výběr formátu vida je důležitý – výše Vaší odměny závisí na
 Formát videa vyberte kliknutím na obrázek.
 """
 
-Rtext = "s výraznou textovou podporou. V menším okně je osoba, která provádí lekcí"
-Stext = "hlavních bodů, osoba, která provádí lekcí, je výrazněji přítomna"
+Rtext = "statické prezentace s výraznou textovou podporou. V menším okně je osoba, která provádí lekcí"
+Stext = "dynamické prezentace hlavních bodů, otázek posluchačům a osoba, která provádí lekcí, je výrazněji přítomna"
 
 
 instructions6 = """

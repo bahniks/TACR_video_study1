@@ -122,7 +122,7 @@ class Questionnaire(ExperimentFrame):
 
 
 
-nfcIntro = "Přečtěte si prosíme každé tvrzení a ohodnoťte, nakolik je pro Vás charakteristické."
+nfcIntro = "Přečtěte si prosíme každé tvrzení a ohodnoťte, nakolik je pro Vás ne/charakteristické."
 
 NFC = (Questionnaire,
                 {"words": "nfc.txt",
@@ -144,7 +144,7 @@ NFC = (Questionnaire,
 
 
 
-boredomIntro = """Přečtěte si prosím každé tvrzení a označte, nakolik s ním souhlasíte.
+boredomIntro = """Přečtěte si prosíme každé tvrzení a označte, nakolik s ním souhlasíte.
 Vaším úkolem je odpovídat co nejupřímněji podle toho, co nejlépe vystihuje Vaše běžné prožívání a chování."""
 
 Boredom = (Questionnaire,

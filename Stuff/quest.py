@@ -24,7 +24,7 @@ V následující části studie budete odpovídat na otázky o sobě, Vašich po
 
 Každou otázku si pečlivě přečtěte. Snažte se však na otázky nemyslet příliš dlouho; první odpověď, která Vám přijde na mysl, je obvykle nejlepší.
 
-Mezi dotazníky bude jedna položka měřící vaší pozornost, pokud odpovíte správně, tak dostanete dodatečných {BONUS} Kč.
+Mezi dotazníky bude jedna položka měřící Vaší pozornost, pokud odpovíte správně, dostanete dodatečných {BONUS} Kč.
 """
 
 hexacoinstructions = """Na následujících stránkách najdete řadu prohlášení o Vaší osobě.

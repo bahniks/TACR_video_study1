@@ -26,15 +26,16 @@ U každého z následujících tvrzení uveďte, nakolik je pro vás pravdivé.
 imiScale = ["vůbec nepravdivé", "spíše nepravdivé", "do jisté míry pravdivé", "spíše pravdivé", "zcela pravdivé"]
 
 quizInstructions1 = """
-Nyní odpovězte na následující otázky týkající se obsahu právě zhlédnutého videa na Prokletí znalosti. U každé otázky jsou uvedeny čtyři odpovědi, vždy jen jedna z nich je správná. (výsledek tohoto kvízu nemá vliv na výši odměny).
+Nyní odpovězte na následující otázky týkající se obsahu právě zhlédnutého videa na Prokletí znalosti. U každé otázky jsou uvedeny čtyři odpovědi, vždy jen jedna z nich je správná. (Výsledek tohoto kvízu nemá vliv na výši odměny.)
 """
+
 quizInstructions2 = """
-Nyní odpovězte na následující otázky týkající se obsahu právě zhlédnutého videa na Status Quo bias. U každé otázky jsou uvedeny čtyři odpovědi, vždy jen jedna z nich je správná. (výsledek tohoto kvízu nemá vliv na výši odměny).
+Nyní odpovězte na následující otázky týkající se obsahu právě zhlédnutého videa na Chybu Statutu Quo. U každé otázky jsou uvedeny čtyři odpovědi, vždy jen jedna z nich je správná. (Výsledek tohoto kvízu nemá vliv na výši odměny.)
 """
 
 braces = "{}"
 quizInstructions3 = f"""
-Nyní vás čeká závěrečný kvíz, který ověří, co jste si z videí zapamatovali.
+Nyní Vás čeká závěrečný kvíz, který ověří, co jste si z videí zapamatovali.
 Za každou správnou odpověď získáte 1 bod. 
 U každé otázky je vždy jedna správná odpověď.
 
