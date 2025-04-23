@@ -5,6 +5,7 @@ from tkinter import ttk
 
 import os
 import vlc
+import random
 
 from common import ExperimentFrame, Measure, InstructionsFrame, InstructionsAndUnderstanding
 from questionnaire import Questionnaire
@@ -23,7 +24,7 @@ Nyní Vás prosíme o hodnocení této série videí.
 U každého z následujících tvrzení uveďte, nakolik je pro vás pravdivé.
 """
 
-imiScale = ["vůbec nepravdivé", "spíše nepravdivé", "do jisté míry pravdivé", "spíše pravdivé", "zcela pravdivé"]
+imiScale = ["zcela nepravdivé", "spíše nepravdivé", "do jisté míry pravdivé", "spíše pravdivé", "zcela pravdivé"]
 
 quizInstructions1 = """
 Nyní odpovězte na následující otázky týkající se obsahu právě zhlédnutého videa na Prokletí znalosti. U každé otázky jsou uvedeny čtyři odpovědi, vždy jen jedna z nich je správná. (Výsledek tohoto kvízu nemá vliv na výši odměny.)
@@ -143,7 +144,7 @@ class Quiz(InstructionsAndUnderstanding):
         else:
             thisCorrect = "0"
             
-        self.file.write(self.id + "\t" + str(self.controlNum) + "\t" + self.controlQuestion.getAnswer() + "\t" + thisCorrect + "\t" + str(self.correct) + "\t" + self.root.status["condition"] + "\t" + self.root.status["versions"][int(self.name[-1])-1] + "\n")
+        self.file.write(self.id + "\t" + str(self.controlNum) + "\t" + self.controlTexts[self.controlNum - 1][0] + "\t" + self.controlQuestion.getAnswer() + "\t" + thisCorrect + "\t" + str(self.correct) + "\t" + self.root.status["condition"] + "\t" + self.root.status["versions"][int(self.name[-1])-1] + "\n")
 
         if self.controlNum == len(self.controlTexts):
             self.file.write("\n")
@@ -218,6 +219,7 @@ def getQuestions(filename):
                 q[1].append(line.strip())               
             count += 1
     questions.append(q)
+    random.shuffle(questions)
     return questions
 
 

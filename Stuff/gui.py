@@ -56,7 +56,7 @@ class GUI(Tk):
         if load and URL != "TEST":            
             if os.path.exists("temp.json"):
                 ans = messagebox.askyesno(
-                    message="Chcete pokračovat tam, kde jste skončili?",
+                    message="Má se načíst započatý experiment?",
                     icon="question",
                     parent=self,
                     title="Pokračovat v experimentu?"
