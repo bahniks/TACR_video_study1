@@ -102,7 +102,7 @@ class Videos(ExperimentFrame):
 
 class JOL(InstructionsFrame):
     def __init__(self, root):
-        super().__init__(root, text = "", proceed = True)
+        super().__init__(root, text = "", proceed = True, savedata = True)
 
         self.root = root
 
