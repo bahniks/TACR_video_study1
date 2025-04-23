@@ -106,7 +106,7 @@ class JOL(InstructionsFrame):
 
         self.root = root
 
-        q = "Kolik informací z videa si myslíte, že si budete schopni vybavit přibližně za 5 minut?"
+        q = "Kolik informací z videa si myslíte, že si budete schopni vybavit přibližně za 2-3 minuty?"
         options = ["0 % (nic z toho)", "20 %", "40 %", "60 %", "80 %", "100 % (vše)"]
 
         self.measure = Measure(self, text = q, values = options, left = "", right = "", questionPosition = "above", filler = 700, function=self.enable)
