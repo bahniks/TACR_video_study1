@@ -118,10 +118,10 @@ class JOL(InstructionsFrame):
         self.next["state"] = "normal"
 
     def write(self):
-        trial = self.root.status["videoNumber"]
+        trial = self.root.status["videoNumber"] - 1
         version = self.root.status["versions"][trial - 1]
         self.file.write("JOL\n")
-        self.file.write(self.id + "\t" + trial + "\t" + version + "\t" + self.measure.getAnswer() + "\n\n")
+        self.file.write(self.id + "\t" + str(trial) + "\t" + version + "\t" + self.measure.answer.get() + "\n\n")
 
 
 class Quiz(InstructionsAndUnderstanding):
