@@ -1,8 +1,8 @@
-Co znamená chyba rámcování podle videa?
-Přemýšlení o problému pouze z jednoho úhlu
-Ignorování všech alternativních řešení
-Neustálé hledání nových perspektiv
-Záměrné zkreslení faktů při prezentaci informací
+Ve videu zaznělo: “Dalším způsobem je dát účastníkům úkol přemýšlet o problému z různých\nperspektiv – třeba jak by ho vnímal… “ Který příklad nezazněl?
+Soudce
+Novinář
+Dítě
+Žádný z uvedených
 
 Jaký dopad má chyba rámcování na diskuzi při poradách dle videa?
 Omezuje a ignoruje alternativní nápady
@@ -13,7 +13,7 @@ Zajišťuje rovnoměrné zapojení všech názorů
 Jak může dle videa chyba rámcování ovlivnit přístup k úpravám organizačního procesu?
 Může vést k přidávání zbytečných kroků místo zjednodušení 
 Podnítí diskusi o odebrání prvků 
-Zaručí, že se všichni shodnou na jednom řešení
+Zaručí, že se všichni shodnou na jednom úhlu pohledu
 Využije tendenci spíše odebírat než doplňovat procesy
 
 Který přístup nejlépe pomáhá zmírnit efekt rámcování při řešení problémů na poradě dle videa?
@@ -64,14 +64,14 @@ Vedoucí předkládají své nápady jako první
 Zavedení pravidla, že jen vedoucí řídí diskuzi
 Neinformování účastníků o důležitých bodech
 
-Proč je dle videa na efektivní vedení porad důležité, aby zápis z porady byl praktický a jasný?
-Aby bylo zřejmé, kdo má jaké úkoly a do kdy je má splnit
-Aby obsahoval všechny teoretické detaily
-Aby zahrnoval i kontext nápadů
-Aby byl zápis co nejdelší a detailní
+Ve videu zaznělo: "Po skončení porady rozešlete zápis, který obsahuje hlavně:... “\nKterý z bodů nezazněl?
+Cíle
+Termíny 
+Odpovědnosti
+Úkoly
 
-Jaký přístup může organizátor porady využít, aby podpořil vyváženou diskuzi o navrhovaných změnách dle videa?
-Požádat účastníky, aby si předem připravili argumenty pro i proti navrhovaným změnám
+Jaký přístup může organizátor porady využít, aby podpořil vyváženou diskuzi o\nnavrhovaných změnách dle videa?
+Žádná z uvedených možností
 Předem zajistit flipcharty a další pomůcky na brainstorming
 Požádat předem účastníky pouze o pozitivní aspekty změny
 Ujmout se diskuze a jako první jasně popsat své nápady
@@ -112,23 +112,23 @@ Přerušování ostatních
 Monopolizace diskuze
 Snaha prosadit vlastní názor bez ohledu na ostatní
 
-Měl na sobě moderátor ve videjích brýle?
-Ne, neměl v žádném videu
-Ano, ve všech videjích
-Ane, ale pouze ve dvou videjích
-Ano, ale pouze v jednom videu
+Který z následujících typů porad byl ve videu zmíněn jako jeden ze dvou hlavních typů porad?
+Rozhodovací porada
+Operativní porada
+Týmová porada
+Strategická porada
 
 Proč jsou on-line porady často vyčerpávající podle videa?
 Protože vyžadují větší míru soustředění kvůli absenci neverbálních podnětů
 Protože jsou kratší, ale informačně bohatší než osobní setkání
 Protože častěji začínají později, protože nefunguje technické vybavení
-Protože se účastníci mají tendenci více soustředit text na sdílené obrazovce
+ Protože mají účastníci tendenci více se soustředit na text na sdílené obrazovce.
 
-Které opatření je ve videu doporučeno pro zajištění hladkého průběhu on-line porad?
-Mít předem stanovená jasná pravidla ohledně zapnutí kamery, mikrofonu a přihlášení do diskuze
-Nepoužívat kameru a aktivně se zapojovat do diskuze
-Zajistit, že jen vedoucí bude moci moderovat diskuzi
-Zajistit přestávky každých 45 minut
+Ve videu zaznělo: “Schůzky by měly mít jasná pravidla, která jsou všem účastníkům předem známá.\nNapříklad, zda se schůzka bude nahrávat…” Který další bod nezazněl?
+Jak dlouho schůzka bude trvat
+Jestli je nutné mít zapnutou kameru
+Jakým způsobem vstupovat do debaty 
+Kolik času má kdo na vyjádření
 
 Který problém je podle videa u on-line porad nejčastější?
 Lidé dělají více věcí najednou, což snižuje jejich pozornost a efektivitu
@@ -136,11 +136,11 @@ Všichni účastníci se připojují pozdě
 Účastníci řeší nevyhovující technické vybavení
 Vedoucí dostatečně nezasahuje do diskuse, což vede ke komunikačnímu šumu
 
-Jak dlouho by měla trvat on-line schůzka bez pauzy podle doporučení ve videu?
-30 minut
-45 minut
-1 hodina
-25 minut
+Ve videu zaznělo: “u on-line schůzek jsou důležité pravidelné krátké pauzy ideálně po každém bodu programu\nnebo nejdéle po 30 minutách. Zní to triviálně, ale lidé by měli mít příležitost…” Který bod nezazněl?
+Si zacvičit
+Se protáhnout
+Chvíli si odpočinout
+Dojít si pro nápoj
 
 Které tvrzení o počtu účastníků online porady bylo ve videu zmíněno jako konkrétní doporučení?
 Online porady by neměly mít více než 10 účastníků
