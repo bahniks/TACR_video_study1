@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*- 
 
 import os
+import uuid
 
 
 studies = {"Login": ("id", "first_video","second_video"),
@@ -83,8 +84,15 @@ if read:
                             content = line.strip()
                             if not content or content.startswith("time: "):
                                 break
+                            elif len(content.split("\t")[0]) == 36:
+                                try:
+                                    uuid.UUID(content.split("\t")[0])
+                                    results.write("\n" + content)
+                                except ValueError:
+                                    results.write(" " + content)
                             else:
-                                results.write("\n" + content)
+                                results.write(" " + content)
+                            
 
 if compute:
     times = {frame: [] for frame in frames}
