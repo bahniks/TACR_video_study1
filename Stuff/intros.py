@@ -40,6 +40,8 @@ V závěrečném kvízu jste dosáhl(a) {} správných odpovědí z 25. Na zákl
 
 Studie založená na datech získaných v tomto experimentu bude volně dostupná na stránkách Centra laboratorního a experimentálního výzkumu FPH VŠE, krátce po vyhodnocení dat a publikaci výsledků. 
 
+Cílem studie bylo zjistit, jaký typ edukačního videa lidé preferují a jak jej hodnotí v různých parametrech oblíbenosti či náročnosti. Studie rovněž nabízela participantům různou velikost odměny - v závislosti do jaké podmínky byli náhodně zařazeni - za správné odpovědi, s cílem ověřit, jak preference participantů ovlivňuje velká či malá odměna.
+
 <b>Žádáme Vás, abyste nesděloval(a) detaily této studie možným účastníkům, aby jejich volby a odpovědi nebyly ovlivněny a znehodnoceny.</b>
   
 Můžete si vzít všechny svoje věci a vyplněný příjmový doklad, a aniž byste rušil(a) ostatní účastníky, odeberte se do vedlejší místnosti za výzkumným asistentem, od kterého obdržíte svoji odměnu. 
@@ -77,7 +79,7 @@ class Ending(InstructionsFrame):
         root.texts["participation_fee"] = PARTICIPATION_FEE
         root.texts["bonus"] = BONUS
         updates = ["participation_fee", "attention1", "attention2", "bonus", "quizcorrect", "quizwin", "reward"]
-        super().__init__(root, text = ending, keys = ["g", "G"], proceed = False, height = 25, update = updates)
+        super().__init__(root, text = ending, keys = ["g", "G"], proceed = False, height = 29, update = updates)
         self.file.write("Ending\n")
         self.file.write(self.id + "\t" + str(root.texts["reward"]) + "\n\n")
 
