@@ -1,4 +1,4 @@
-Ve videu zaznělo: “Dalším způsobem je dát účastníkům úkol přemýšlet o problému z různých\nperspektiv – třeba jak by ho vnímal… “ Který příklad nezazněl?
+Ve videu zaznělo: "Dalším způsobem je dát účastníkům úkol přemýšlet o problému z různých\nperspektiv – třeba jak by ho vnímal… " Který příklad nezazněl?
 Soudce
 Novinář
 Dítě
@@ -40,17 +40,17 @@ Pravidelné dělání přestávek v průběhu porady
 Omezit počet účastníků porady
 Neumožnit diskuzi během schůzky
 
-Jaký je klíčový negativní dopad předpojatosti vůči autoritě v kontextu týmového rozhodování dle vysvětlení ve videu?
-Ovlivňuje rozhodnutí pouze názory vedoucích, čímž může bránit inovativním řešením
+Jaký je klíčový negativní dopad předpojatosti vůči autoritě v kontextu týmového\nrozhodování dle vysvětlení ve videu?
+Ovlivňuje rozhodnutí pouze názory vedoucích
 Rámce, ve kterých se na poradě přemýšlí, jsou složitější
 Nutí vedoucího k přehnaným vysvětlením 
 Přidává zbytečné kroky místo zjednodušení
 
-Jaký magazín byl ukázán jako vizuál k tragédiím o pádech letadel Korean Air?
-Time
-USA Today
-New York Times
-Nebyl to magazín
+V jakých letech je ve videu zmíněno, že se udály nehody Korean Air?
+V devadesátých
+V sedmdesátých
+V osmdesátých
+V šedesátých
 
 Který z následujících příkladů byl použit ve videích skutečně zmíněn\njako ilustrace psychologického zkreslení předpojatosti vůči autoritě?
 Příklad Korean Air 
@@ -64,7 +64,7 @@ Vedoucí předkládají své nápady jako první
 Zavedení pravidla, že jen vedoucí řídí diskuzi
 Neinformování účastníků o důležitých bodech
 
-Ve videu zaznělo: "Po skončení porady rozešlete zápis, který obsahuje hlavně:... “\nKterý z bodů nezazněl?
+Ve videu zaznělo: "Po skončení porady rozešlete zápis, který obsahuje hlavně:... "\nKterý z bodů nezazněl?
 Cíle
 Termíny 
 Odpovědnosti
@@ -78,9 +78,9 @@ Ujmout se diskuze a jako první jasně popsat své nápady
 
 Jaká strategie pomáhá zajistit zapojení všech účastníků do diskuze dle videa?
 Zavést systém rotujícího moderátora
-Nechat vedoucího mluvit většinu času
-Dát prostor těm nejzkušenějším
-Omezit diskuzi na předepsané body
+Zavést systém rotujícího mediátora
+Dát prostor těm nejméně zkušeným
+Vyžadovat, aby si všichni připravili své materiály před poradou
 
 Jak dle videa lze zvýšit motivaci účastníků k přečtení dokumentů před poradou?
 Umístit do textu nenápadný bonus nebo odměnu
@@ -95,22 +95,22 @@ Neskákat vedoucímu do řeči
 Připravit se na pozitiva, která můžeme zdůraznit
 
 Proč je podle videa aktivní účast během porady důležitá?
-Zvyšuje kvalitu diskuse a přispívá k dosažení lepších výsledků
+Zvyšuje kvalitu porady a přispívá k dosažení lepších výsledků
 Snižuje strach z autority a redukuje prokletí rámcování
 Přispívá kontextu, který vedoucí nepřináší na poradu
 Zajišťuje pozitivní a kreativní atmosféru a generuje pozitivní nápady
 
 Jak byste dle videa měli postupovat, pokud nevíte, co se od vás na poradě očekává?
 Zeptat se předem na očekávání a připravit si vlastní nápady
-Dávat pozor a doufat v pochopení během porady
-Poukázat na možnost výskytu kognitivních chyb
-Během porady si projít zápis z předchozí porady
+Zeptat se předem na očekávání
+Zeptat se předem na očekávání, připravit si vlastní nápady a během porady si projít zápis z předchozí porady
+Projít si zápis z předchozí porady a zeptat se předem na očekávání
 
-Co NEpatří mezi příklady dominantního chování na poradě dle videa o efektivní účasti na poradě?
-Otevřená kritika argumentů ostatních
-Přerušování ostatních
-Monopolizace diskuze
-Snaha prosadit vlastní názor bez ohledu na ostatní
+Ve videu je zmíněno, že dominantní jednání může narušit průběh porady a také:
+Zhoršit atmosféru
+Vyhrotit atmosféru
+Zhoršit diskuzi
+Vyhrotit diskuzi
 
 Který z následujících typů porad byl ve videu zmíněn jako jeden ze dvou hlavních typů porad?
 Rozhodovací porada
@@ -121,22 +121,22 @@ Strategická porada
 Proč jsou on-line porady často vyčerpávající podle videa?
 Protože vyžadují větší míru soustředění kvůli absenci neverbálních podnětů
 Protože jsou kratší, ale informačně bohatší než osobní setkání
-Protože častěji začínají později, protože nefunguje technické vybavení
- Protože mají účastníci tendenci více se soustředit na text na sdílené obrazovce.
+Protože vyžadují větší míru soustředění kvůli zavalení verbálními podněty
+Protože mají účastníci tendenci více se soustředit na text na sdílené obrazovce
 
-Ve videu zaznělo: “Schůzky by měly mít jasná pravidla, která jsou všem účastníkům předem známá.\nNapříklad, zda se schůzka bude nahrávat…” Který další bod nezazněl?
+Ve videu zaznělo, že schůzky by měly mít jasná pravidla, která jsou všem účastníkům předem známá;\nnapříklad, zda se schůzka bude nahrávat a další. Který další bod nezazněl?
 Jak dlouho schůzka bude trvat
 Jestli je nutné mít zapnutou kameru
 Jakým způsobem vstupovat do debaty 
 Kolik času má kdo na vyjádření
 
 Který problém je podle videa u on-line porad nejčastější?
-Lidé dělají více věcí najednou, což snižuje jejich pozornost a efektivitu
+Lidé dělají více věcí najednou
 Všichni účastníci se připojují pozdě
 Účastníci řeší nevyhovující technické vybavení
-Vedoucí dostatečně nezasahuje do diskuse, což vede ke komunikačnímu šumu
+Vedoucí dostatečně nezasahuje do diskuse
 
-Ve videu zaznělo: “u on-line schůzek jsou důležité pravidelné krátké pauzy ideálně po každém bodu programu\nnebo nejdéle po 30 minutách. Zní to triviálně, ale lidé by měli mít příležitost…” Který bod nezazněl?
+Ve videu zaznělo, že u on-line schůzek jsou důležité pravidelné krátké pauzy.\nZní to triviálně, ale lidé by měli mít příležitost… Který bod poté nezazněl?
 Si zacvičit
 Se protáhnout
 Chvíli si odpočinout

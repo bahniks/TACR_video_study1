@@ -45,7 +45,7 @@ frames = [Initial,
           Ending
          ]
 
-#frames = [Login, Hexaco, Quiz3, Ending]
+#frames = [Login, Selection, Quiz3, Hexaco, Ending]
 
 if __name__ == "__main__":
     GUI(frames, load = os.path.exists("temp.json"))
